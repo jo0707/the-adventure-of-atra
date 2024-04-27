@@ -19,6 +19,7 @@ Akan dilampirkan
 
 - Joshua Palti Sinaga
 - Ikhsannudin Lathief
+- Irma Amelia Novianti
 
 ## Catatan
 
