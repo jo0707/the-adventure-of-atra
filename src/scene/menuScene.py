@@ -22,7 +22,7 @@ class MenuScene(Scene):
             Button(
                 x=buttonX,
                 y=buttonY,
-                width=300,
+                width=350,
                 height=100,
                 text="Mulai Permainan",
                 action=lambda: self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)
@@ -30,7 +30,7 @@ class MenuScene(Scene):
             Button(
                 x=buttonX,
                 y=buttonY + 110,
-                width=300,
+                width=350,
                 height=100,
                 text="Pengaturan",
                 action=lambda: pygame.event.post(pygame.event.Event(EventHelper.EVENT_SCENESETTINGS)),
@@ -38,7 +38,7 @@ class MenuScene(Scene):
             Button(
                 x=buttonX,
                 y=buttonY + 220,
-                width=300,
+                width=350,
                 height=100,
                 text="Keluar",
                 action=lambda: pygame.event.post(pygame.event.Event(pygame.QUIT)),

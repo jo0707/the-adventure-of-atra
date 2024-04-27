@@ -1,8 +1,8 @@
 import pygame
 
-from src.scene.GameScene import GameScene
-from src.scene.MenuScene import MenuScene
-from src.scene.SettingScene import SettingsScene
+from src.scene.level0Scene import Level0Scene
+from src.scene.menuScene import MenuScene
+from src.scene.settingScene import SettingsScene
 from src.utils.eventHelper import EventHelper
 
 class SceneManager:
@@ -15,7 +15,7 @@ class SceneManager:
         if event.type == EventHelper.EVENT_SCENESTART:
             self.currentScene = MenuScene(self.screen)
         if event.type == EventHelper.EVENT_SCENEGAME:
-            self.currentScene = GameScene(self.screen)
+            self.currentScene = Level0Scene(self.screen)
         if event.type == EventHelper.EVENT_SCENESETTINGS:
             self.currentScene = SettingsScene(self.screen)
         

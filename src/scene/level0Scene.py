@@ -2,14 +2,16 @@ import pygame
 
 from src.components.character import Character
 from src.scene.scene import Scene
+from src.utils.screenHelper import ScreenHelper
 
-class GameScene(Scene):
+class Level0Scene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen)
-        self.background = pygame.image.load("assets/images/maps/0.png")
+        self.background = pygame.image.load("assets/images/scene0/background.png")
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.character = Character()
+        self.character.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
         self.sprites.add(self.character)
     
     def onKeyDown(self, keys):
