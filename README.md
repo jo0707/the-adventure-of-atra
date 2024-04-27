@@ -20,6 +20,8 @@ Akan dilampirkan
 - Joshua Palti Sinaga
 - Ikhsannudin Lathief (UDIN)
 - Irma Amelia Novianti
+- Alfajar
+
 ## Catatan
 
 Game ini masih dalam tahap pengembangan dan beberapa fitur dan konten mungkin akan ditambahkan pada versi selanjutnya. Masukan dari para pemain sangat dihargai untuk meningkatkan pengalaman bermain.
