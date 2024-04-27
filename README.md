@@ -18,7 +18,7 @@ Akan dilampirkan
 ## Kontributor Pengembangan Aplikasi
 
 - Joshua Palti Sinaga
-- Ikhsannudin Lathief
+- Ikhsannudin Lathief (UDIN)
 
 ## Catatan
 
