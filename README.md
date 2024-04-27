@@ -20,7 +20,7 @@ Akan dilampirkan
 - Joshua Palti Sinaga
 - Ikhsannudin Lathief (UDIN)
 - Irma Amelia Novianti
-- Alfajar
+- Alfajar (122140122)
 
 ## Catatan
 
