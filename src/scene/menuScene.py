@@ -11,7 +11,7 @@ from src.utils.eventHelper import EventHelper
 class MenuScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen)
-        self.background = pygame.image.load("assets/images/background.png")
+        self.background = pygame.image.load("assets/images/backgrounds/menu.png")
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         buttonX = ScreenHelper.getWindowX() // 2 - 150

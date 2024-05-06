@@ -1,6 +1,6 @@
 import pygame
 
-from src.scene.level0Scene import Level0Scene
+from src.scene.outdoorScene import OutdoorScene
 from src.scene.menuScene import MenuScene
 from src.scene.settingScene import SettingsScene
 from src.utils.eventHelper import EventHelper
@@ -15,7 +15,7 @@ class SceneManager:
         if event.type == EventHelper.EVENT_SCENESTART:
             self.currentScene = MenuScene(self.screen)
         if event.type == EventHelper.EVENT_SCENEGAME:
-            self.currentScene = Level0Scene(self.screen)
+            self.currentScene = OutdoorScene(self.screen)
         if event.type == EventHelper.EVENT_SCENESETTINGS:
             self.currentScene = SettingsScene(self.screen)
         

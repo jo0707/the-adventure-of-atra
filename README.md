@@ -17,7 +17,7 @@ Akan dilampirkan
 
 ## Kontributor Pengembangan Aplikasi
 
-- Joshua Palti Sinaga
+- Joshua Palti Sinaga (122140141)
 - Ikhsannudin Lathief (UDIN)
 - Irma Amelia Novianti
 - Alfajar (122140122)
