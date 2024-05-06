@@ -21,7 +21,7 @@ class Game:
         SoundHelper.initSounds()
         pygame.mixer_music.load("assets/sounds/backsound.mp3")
         pygame.mixer_music.play(-1)
-        pygame.mixer_music.set_volume(0.2)
+        pygame.mixer_music.set_volume(0.3)
         self.sceneManager = SceneManager(Game.screen)
         
     def onEvent(self):

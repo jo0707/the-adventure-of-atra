@@ -5,10 +5,10 @@ from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class OutdoorScene(Scene):
+class LobbyFrontScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen)
-        self.background = pygame.image.load("assets/images/backgrounds/outdoor.png")
+        self.background = pygame.image.load("assets/images/backgrounds/lobbyFront.png")
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
@@ -32,4 +32,6 @@ class OutdoorScene(Scene):
         for sprite in self.sprites:
             sprite.update()
         if self.atra.rect.top < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYFRONT)
+            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYMIDDLE)
+        if self.atra.rect.bottom > ScreenHelper.getWindowY():
+            self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)

@@ -14,5 +14,12 @@ class EventHelper:
         pygame.event.post(pygame.event.Event(event))
 
     EVENT_SCENESTART = newEvent()
-    EVENT_SCENEGAME = newEvent()
     EVENT_SCENESETTINGS = newEvent()
+    EVENT_SCENEGAME = newEvent()
+    EVENT_SCENELOBBYFRONT = newEvent()
+    EVENT_SCENELOBBYMIDDLE = newEvent()
+    EVENT_SCENELOBBYLEFT = newEvent()
+    EVENT_SCENELOBBYRIGHT = newEvent()
+    EVENT_SCENEROOMLAMPUNG = newEvent()
+    EVENT_SCENEROOMSUMATERAUTARA = newEvent()
+    EVENT_SCENEROOMSUMATERABARAT = newEvent()
