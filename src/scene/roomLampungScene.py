@@ -34,7 +34,7 @@ class RoomLampungScene(Scene):
         for sprite in self.sprites:
             sprite.update()
         if pygame.sprite.collide_rect(self.atra, self.radenintan2):
-        
-        
+            pass
+            
         if self.atra.rect.top > ScreenHelper.getWindowY():
             self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYLEFT)
