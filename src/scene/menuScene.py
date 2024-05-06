@@ -16,7 +16,7 @@ class MenuScene(Scene):
         
         buttonX = ScreenHelper.getWindowX() // 2 - 150
         buttonY = (ScreenHelper.getWindowY() // 2) - 100
-        self.title = Textbox("AdventureAtra!", font=FontHelper.fonts["title1"], size=48)
+        self.title = Textbox("AdventureAtra!", font=FontHelper.fonts["title1"], size=56)
         self.title.rect.center = (ScreenHelper.getWindowX() // 2, 100)
         self.sprites.add(
             Button(
@@ -25,7 +25,7 @@ class MenuScene(Scene):
                 width=350,
                 height=100,
                 text="Mulai Permainan",
-                action=lambda: self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYFRONT)
+                action=lambda: self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)
             ),
             Button(
                 x=buttonX,

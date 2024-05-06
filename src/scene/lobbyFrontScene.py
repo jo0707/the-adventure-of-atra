@@ -17,7 +17,6 @@ class LobbyFrontScene(Scene):
         self.walltext2 = pygame.image.load("assets/images/components/wallText.png")
         self.walltext1_pos = (330, 70)
         self.walltext2_pos = (845, 70)
-
         
         
         self.atra = Atra()
