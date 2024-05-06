@@ -8,7 +8,7 @@ from src.utils.eventHelper import EventHelper
 class RoomSumateraUtaraScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen)
-        self.background = pygame.image.load("assets/images/backgrounds/room.png")
+        self.background = pygame.image.load("assets/images/backgrounds/room.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()

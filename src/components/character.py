@@ -20,7 +20,7 @@ class Character(GameEntity, Movable):
             self.images[direction] = []
             for j in range (0, 4):
                 self.images[direction].append(
-                    pygame.transform.scale(pygame.image.load(f'assets/images/char/{name}/{direction}/{j}.png'), (78, 144))
+                    pygame.transform.scale(pygame.image.load(f'assets/images/char/{name}/{direction}/{j}.png').convert_alpha(), (78, 144))
                 )
                 
     def update(self):
