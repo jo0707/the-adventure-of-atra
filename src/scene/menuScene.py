@@ -25,7 +25,7 @@ class MenuScene(Scene):
                 width=350,
                 height=100,
                 text="Mulai Permainan",
-                action=lambda: self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)
+                action=lambda: self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYFRONT)
             ),
             Button(
                 x=buttonX,
