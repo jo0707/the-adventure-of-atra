@@ -31,5 +31,5 @@ class RoomSumateraBaratScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
-        if self.atra.rect.bottom < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYLEFT)
+        if self.atra.rect.top > ScreenHelper.getWindowY():
+            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYRIGHT)

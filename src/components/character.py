@@ -35,6 +35,7 @@ class Character(GameEntity, Movable):
     def onKeyDown(self, keys):
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.isKeyDown = True
+            self.moveDown()
             if self.currentDirection != DIRECTIONS[0]:
                 self.currentDirection = DIRECTIONS[0]
                 self.nextFrame()

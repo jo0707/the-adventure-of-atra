@@ -1,5 +1,7 @@
 import pygame
 
+from src.components.frontLeftTable import FrontLeftTable
+from src.components.frontRightTable import FrontRightTable
 from src.components.atra import Atra
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
@@ -12,8 +14,10 @@ class LobbyFrontScene(Scene):
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
+        self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
+        self.frontRightTable = FrontRightTable(ScreenHelper.getWindowX(), ScreenHelper.getWindowY())
         self.atra.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
-        self.sprites.add(self.atra)
+        self.sprites.add(self.atra, self.frontLeftTable, self.frontRightTable)
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
@@ -33,5 +37,5 @@ class LobbyFrontScene(Scene):
             sprite.update()
         if self.atra.rect.top < 0:
             self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYMIDDLE)
-        if self.atra.rect.bottom > ScreenHelper.getWindowY():
+        if self.atra.rect.top > ScreenHelper.getWindowY():
             self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)
