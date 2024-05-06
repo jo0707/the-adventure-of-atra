@@ -1,6 +1,6 @@
 import pygame
 
-from src.components.SumateraStatue import SumaterStatue
+from src.components.sumateraStatue import SumaterStatue
 from src.components.atra import Atra
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
