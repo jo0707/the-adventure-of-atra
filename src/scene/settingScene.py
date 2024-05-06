@@ -5,7 +5,7 @@ from src.scene.scene import Scene
 class SettingsScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen)
-        self.background = pygame.image.load("assets/background.png")
+        self.background = pygame.image.load("assets/background.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
     
     def onKeyDown(self, keys):
