@@ -12,6 +12,13 @@ class LobbyFrontScene(Scene):
         super().__init__(screen)
         self.background = pygame.image.load("assets/images/backgrounds/lobbyFront.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
+
+        self.walltext1 = pygame.image.load("assets/images/components/wallText.png")
+        self.walltext2 = pygame.image.load("assets/images/components/wallText.png")
+        self.walltext1_pos = (330, 70)
+        self.walltext2_pos = (845, 70)
+
+        
         
         self.atra = Atra()
         self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
@@ -30,6 +37,8 @@ class LobbyFrontScene(Scene):
     
     def display(self):
         self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.walltext1, self.walltext1_pos)
+        self.screen.blit(self.walltext2, self.walltext2_pos)
         self.sprites.draw(self.screen)
     
     def update(self):
