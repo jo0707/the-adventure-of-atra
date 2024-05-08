@@ -1,12 +1,14 @@
 import pygame
 
 from src.components.character import Character
+from src.utils.screenHelper import ScreenHelper
 
 DIRECTIONS = ("down", "left", "up", "right")
 
 class Atra(Character):
     def __init__(self):
         super().__init__("atra")
+        self.clampRects = []
         
     def onKeyDown(self, keys):
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
@@ -35,3 +37,35 @@ class Atra(Character):
                 self.nextFrame()
         else:
             self.isKeyDown = False 
+        if self.isKeyDown:
+            for rect in self.clampRects:
+                self.rect.clamp_ip(rect)
+            
+    def addClamp(self, rect):
+        self.clampRects.append(rect)
+    
+    def placeBottom(self, x: int | None = None):
+        self.rect.midbottom = (x if x != None else ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() - 20)
+        self.currentDirection = DIRECTIONS[2]
+        self.image = self.images[self.currentDirection][0]
+        
+    def placeRight(self, y: int | None = None):
+        self.rect.midright = (ScreenHelper.getWindowX() - 20, y if y != None else ScreenHelper.getWindowY() / 2)
+        self.currentDirection = DIRECTIONS[1]
+        self.image = self.images[self.currentDirection][0]
+        
+    def placeTop(self, x: int | None = None):
+        self.rect.midtop = (x if x != None else ScreenHelper.getWindowX() / 2, 20)
+        self.currentDirection = DIRECTIONS[0]
+        self.image = self.images[self.currentDirection][0]
+        
+    def placeLeft(self, y: int | None = None):
+        self.rect.midleft = (20, y if y != None else ScreenHelper.getWindowY() / 2)
+        self.currentDirection = DIRECTIONS[3]
+        self.image = self.images[self.currentDirection][0]
+        
+    def placeCenter(self):
+        self.rect.center = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.currentDirection = DIRECTIONS[0]
+        self.image = self.images[self.currentDirection][0]
+        

@@ -19,6 +19,7 @@ class LobbyMiddleScene(Scene):
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
+        self.atra.placeBottom()
         self.sumateraStatue = SumaterStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
         self.wallMap = WallMap(179, 40)
         self.wallText = WallText(829, 71)
@@ -26,7 +27,6 @@ class LobbyMiddleScene(Scene):
         self.visitor3 = Visitor3(250, 85)
         self.visitor2 = Visitor2(900, 200)
         self.staff = Staff(900, 90)
-        self.atra.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
         self.sprites.add(self.sumateraStatue, self.wallMap, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
     
     def onKeyDown(self, keys):

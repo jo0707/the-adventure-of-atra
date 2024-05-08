@@ -8,7 +8,7 @@ DIRECTIONS = ("down", "left", "up", "right")
 
 class Character(GameEntity, Movable):
     def __init__(self, name: str):
-        GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', 78, 144, 0)
+        GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', width=78, height=144)
         Movable.__init__(self, 4, self.rect)
         
         self.currentDirection = DIRECTIONS[0]
@@ -24,7 +24,6 @@ class Character(GameEntity, Movable):
                 )
                 
     def update(self):
-        print(f"btm:{self.rect.bottom} | top:{self.rect.top} | left:{self.rect.left} | right:{self.rect.right}")
         self.animationTick += 1
         if not self.isKeyDown:
             self.currentFrame = 0

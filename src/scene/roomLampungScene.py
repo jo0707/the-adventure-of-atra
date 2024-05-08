@@ -13,8 +13,8 @@ class RoomLampungScene(Scene):
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
+        self.atra.placeBottom()
         self.radenintan2 = RadenIntan2(ScreenHelper.getWindowX() / 2, 40)
-        self.atra.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
         self.sprites.add(self.radenintan2, self.atra)
     
     def onKeyDown(self, keys):

@@ -24,7 +24,7 @@ class LobbyFrontScene(Scene):
         self.atra = Atra()
         self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
         self.frontRightTable = FrontRightTable(ScreenHelper.getWindowX(), ScreenHelper.getWindowY())
-        self.atra.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
+        self.atra.placeBottom()
         self.sprites.add(self.atra, self.frontLeftTable, self.frontRightTable, self.walltext1, self.walltext2, self.staff1, self.staff2)
     
     def onKeyDown(self, keys):

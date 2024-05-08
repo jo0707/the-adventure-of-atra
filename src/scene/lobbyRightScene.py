@@ -12,7 +12,7 @@ class LobbyRightScene(Scene):
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
-        self.atra.rect.bottomleft = (0, ScreenHelper.getWindowY() / 2)
+        self.atra.placeLeft()
         self.sprites.add(self.atra)
     
     def onKeyDown(self, keys):

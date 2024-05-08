@@ -12,7 +12,7 @@ class RoomSumateraBaratScene(Scene):
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
-        self.atra.rect.bottomleft = (ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY())
+        self.atra.placeBottom()
         self.sprites.add(self.atra)
     
     def onKeyDown(self, keys):
