@@ -22,9 +22,11 @@ class OutdoorScene(Scene):
         
     # creating walls and its rects for collision detection
     def initializeWalls(self):
-        self.atra.addClampObstacle(self.atra.copyRect(0.1))
-        pygame.draw.rect(self.screen, (255, 255, 255), self.atra.rect, 1)
-        
+        self.atra.addClampObstacle(self.background.get_rect())
+        self.nextLevelRect = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(580, 0, 120, 10))
+        self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 530, 40))
+        self.rightWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(750, 0, 530, 40))
+        self.atra.addObstacles([self.leftWall, self.rightWall])
         
     # creating pillars and its rects for collision detection
     def initializePillars(self):
@@ -51,8 +53,5 @@ class OutdoorScene(Scene):
         for sprite in self.sprites:
             sprite.update()
         
-        if pygame.sprite.spritecollideany(self.atra, self.pillarSprites):
-            pass
-        
-        if self.atra.rect.top < 0:
+        if self.atra.rect.colliderect(self.nextLevelRect):
             self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYFRONT)

@@ -62,7 +62,7 @@ class Atra(Character):
         return super().update()
 
     def placeBottom(self, x: int | None = None):
-        self.rect.midbottom = (x if x != None else ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() - 100)
+        self.rect.midbottom = (x if x != None else ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() - 20)
         self.currentDirection = DIRECTIONS[2]
         self.image = self.images[self.currentDirection][0]
         
