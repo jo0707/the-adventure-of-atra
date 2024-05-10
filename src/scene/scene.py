@@ -10,6 +10,7 @@ class Scene(ABC):
         self.sprites = pygame.sprite.Group()
         self.textboxes: List[Textbox] = []
         self.screen = screen
+        self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
@@ -30,6 +31,9 @@ class Scene(ABC):
     @abstractmethod
     def update(self):
         pass
+    
+    def addLevelRect(self, event: int, x: int, y: int, width: int, height: int):
+        self.nextSceneRects[event] = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(x, y, width, height))
 
     def switchSceneEvent(self, nextSceneEvent: int):
         EventHelper.postEvent(nextSceneEvent)

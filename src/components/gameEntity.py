@@ -17,9 +17,9 @@ class GameEntity(pygame.sprite.Sprite):
     
     # mainly used for creating obstacle rect while collision detection
     # this will limit player movement
-    def copyRect(self, heightFactor: float):
+    def copyRect(self, heightFactor: float, bottomOffset: int = 0):
         rectCopy = self.rect.copy()
-        rectCopy.top = rectCopy.bottom
+        rectCopy.top = rectCopy.bottom - bottomOffset
         rectCopy.height = rectCopy.height * heightFactor
         rectCopy.top = rectCopy.top - rectCopy.height
         return rectCopy

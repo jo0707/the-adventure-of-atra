@@ -28,6 +28,20 @@ class LobbyMiddleScene(Scene):
         self.visitor2 = Visitor2(900, 200)
         self.staff = Staff(900, 90)
         self.sprites.add(self.sumateraStatue, self.wallMap, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
+        self.initializeWalls()
+    
+    def initializeWalls(self):
+        self.atra.addClampObstacle(self.background.get_rect())
+        self.addLevelRect(EventHelper.EVENT_SCENEROOMSUMATERAUTARA, 506, 0, 265, 1)
+        self.addLevelRect(EventHelper.EVENT_SCENELOBBYLEFT, 0, 185, 1, 498)
+        self.addLevelRect(EventHelper.EVENT_SCENELOBBYRIGHT, ScreenHelper.getWindowX()-1, 185, 1, 498)
+        self.addLevelRect(EventHelper.EVENT_SCENELOBBYFRONT, 480, ScreenHelper.getWindowY() - 1, 295, 1)
+        self.leftBottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, ScreenHelper.getWindowY() - 36, 490, 36))
+        self.rightBottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, ScreenHelper.getWindowY() - 36, 490, 36))
+        self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
+        self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, ScreenHelper.getWindowY() - 36, 490, 60))
+        
+        self.atra.addObstacles([self.leftBottomWall, self.rightBottomWall, self.leftTopWall, self.rightTopWall, self.sumateraStatue.copyRect(0.1, 100)])
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
@@ -45,11 +59,6 @@ class LobbyMiddleScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
-        if self.atra.rect.top < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENEROOMSUMATERAUTARA)
-        if self.atra.rect.bottom > ScreenHelper.getWindowY():
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYFRONT)
-        if self.atra.rect.left < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYLEFT)
-        if self.atra.rect.right > ScreenHelper.getWindowX():
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYRIGHT)
+        for event, rect in self.nextSceneRects.items():
+            if self.atra.rect.colliderect(rect):
+                self.switchSceneEvent(event)

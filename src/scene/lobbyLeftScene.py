@@ -31,7 +31,6 @@ class LobbyLeftScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
-        if self.atra.rect.right > ScreenHelper.getWindowX():
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYMIDDLE)
-        if self.atra.rect.top < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENEROOMLAMPUNG)
+        for event, rect in self.nextSceneRects.items():
+            if self.atra.rect.colliderect(rect):
+                self.switchSceneEvent(event)

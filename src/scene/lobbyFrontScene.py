@@ -25,7 +25,18 @@ class LobbyFrontScene(Scene):
         self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
         self.frontRightTable = FrontRightTable(ScreenHelper.getWindowX(), ScreenHelper.getWindowY())
         self.atra.placeBottom()
-        self.sprites.add(self.atra, self.frontLeftTable, self.frontRightTable, self.walltext1, self.walltext2, self.staff1, self.staff2)
+        self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2)
+        self.initializeWalls()
+    
+    def initializeWalls(self):
+        self.atra.addClampObstacle(self.background.get_rect())
+        self.addLevelRect(EventHelper.EVENT_SCENELOBBYMIDDLE, 506, 0, 265, 1)
+        self.addLevelRect(EventHelper.EVENT_SCENEGAME, 480, ScreenHelper.getWindowY() - 1, 295, 1)
+        self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 505, 60))
+        self.rightWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(770, 0, 530, 60))
+        self.leftStair = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 290, 225))
+        self.rightStair = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(987, 0, 290, 225))
+        self.atra.addObstacles([self.frontLeftTable.copyRect(0.8), self.frontRightTable.copyRect(0.8), self.leftWall, self.rightWall, self.leftStair, self.rightStair])
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
@@ -43,7 +54,6 @@ class LobbyFrontScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
-        if self.atra.rect.top < 0:
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYMIDDLE)
-        if self.atra.rect.top > ScreenHelper.getWindowY():
-            self.switchSceneEvent(EventHelper.EVENT_SCENEGAME)
+        for event, rect in self.nextSceneRects.items():
+            if self.atra.rect.colliderect(rect):
+                self.switchSceneEvent(event)

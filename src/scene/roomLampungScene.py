@@ -16,6 +16,17 @@ class RoomLampungScene(Scene):
         self.atra.placeBottom()
         self.radenintan2 = RadenIntan2(ScreenHelper.getWindowX() / 2, 40)
         self.sprites.add(self.radenintan2, self.atra)
+        self.initializeWalls()
+    
+    def initializeWalls(self):
+        self.atra.addClampObstacle(self.background.get_rect())
+        self.addLevelRect(EventHelper.EVENT_SCENELOBBYLEFT, 490, ScreenHelper.getWindowY() - 1, 300, 1)
+        self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 28, ScreenHelper.getWindowY()))
+        self.rightWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(ScreenHelper.getWindowX()-28, 0, 28, ScreenHelper.getWindowY()))
+        self.leftBottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, ScreenHelper.getWindowY() - 36, 490, 36))
+        self.rightBottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, ScreenHelper.getWindowY() - 36, 490, 36))
+        self.topWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, ScreenHelper.getWindowX(), 60))
+        self.atra.addObstacles([self.leftWall, self.rightWall, self.leftBottomWall, self.rightBottomWall, self.topWall])
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
@@ -33,8 +44,6 @@ class RoomLampungScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
-        if pygame.sprite.collide_rect(self.atra, self.radenintan2):
-            pass
-            
-        if self.atra.rect.top > ScreenHelper.getWindowY():
-            self.switchSceneEvent(EventHelper.EVENT_SCENELOBBYLEFT)
+        for event, rect in self.nextSceneRects.items():
+            if self.atra.rect.colliderect(rect):
+                self.switchSceneEvent(event)
