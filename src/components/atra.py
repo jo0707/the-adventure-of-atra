@@ -8,9 +8,14 @@ DIRECTIONS = ("down", "left", "up", "right")
 class Atra(Character):
     def __init__(self):
         super().__init__("atra")
-        self.clampRects = []
+        self.isKeyDown = False  
+        self.obstacles = []    
+        self.clamps = []  
         
     def onKeyDown(self, keys):
+        originalX = self.rect.x
+        originalY = self.rect.y
+        
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.isKeyDown = True
             self.moveDown()
@@ -37,15 +42,27 @@ class Atra(Character):
                 self.nextFrame()
         else:
             self.isKeyDown = False 
-        if self.isKeyDown:
-            for rect in self.clampRects:
-                self.rect.clamp_ip(rect)
             
-    def addClamp(self, rect):
-        self.clampRects.append(rect)
-    
+        if self.rect.collidelist(self.obstacles) != -1:
+            self.rect.x = originalX
+            self.rect.y = originalY
+            
+    def addObstacles(self, obstacles: list[pygame.Rect]):
+        self.obstacles.extend(obstacles)
+        
+    def addObstacle(self, obstacle: pygame.Rect):
+        self.obstacles.append(obstacle)
+        
+    def addClampObstacle(self, obstacle: pygame.Rect):
+        self.clamps.append(obstacle)
+
+    def update(self):
+        for obstacle in self.clamps:
+            self.rect.clamp_ip(obstacle)
+        return super().update()
+
     def placeBottom(self, x: int | None = None):
-        self.rect.midbottom = (x if x != None else ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() - 20)
+        self.rect.midbottom = (x if x != None else ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() - 100)
         self.currentDirection = DIRECTIONS[2]
         self.image = self.images[self.currentDirection][0]
         

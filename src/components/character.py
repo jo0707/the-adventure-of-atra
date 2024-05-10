@@ -14,7 +14,6 @@ class Character(GameEntity, Movable):
         self.currentDirection = DIRECTIONS[0]
         self.currentFrame = 0
         self.animationTick = 0
-        self.isKeyDown = False
         self.images: dict[str, list[pygame.Surface]] = {}
         for direction in DIRECTIONS:
             self.images[direction] = []
@@ -30,34 +29,6 @@ class Character(GameEntity, Movable):
             self.image = self.images[self.currentDirection][self.currentFrame]
         if self.animationTick >= DURATION_CHAR_CHANGE and self.isKeyDown:
             self.nextFrame()
-        
-    def onKeyDown(self, keys):
-        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            self.isKeyDown = True
-            self.moveDown()
-            if self.currentDirection != DIRECTIONS[0]:
-                self.currentDirection = DIRECTIONS[0]
-                self.nextFrame()
-        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.isKeyDown = True
-            self.moveLeft()
-            if self.currentDirection != DIRECTIONS[1]:
-                self.currentDirection = DIRECTIONS[1]
-                self.nextFrame()
-        elif keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.isKeyDown = True
-            self.moveUp()
-            if self.currentDirection != DIRECTIONS[2]:
-                self.currentDirection = DIRECTIONS[2]
-                self.nextFrame()
-        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.isKeyDown = True
-            self.moveRight()
-            if self.currentDirection != DIRECTIONS[3]:
-                self.currentDirection = DIRECTIONS[3]
-                self.nextFrame()
-        else:
-            self.isKeyDown = False 
         
     def nextFrame(self):
         self.animationTick = 0

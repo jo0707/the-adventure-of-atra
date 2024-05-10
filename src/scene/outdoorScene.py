@@ -15,14 +15,24 @@ class OutdoorScene(Scene):
             
         self.atra = Atra()
         self.atra.placeBottom()
-        self.atra.addClamp(self.screen.get_rect())
         self.sprites.add(self.atra)
-        
         self.pillarSprites = pygame.sprite.Group()
+        self.initializeWalls()
+        self.initializePillars()
+        
+    # creating walls and its rects for collision detection
+    def initializeWalls(self):
+        self.atra.addClampObstacle(self.atra.copyRect(0.1))
+        pygame.draw.rect(self.screen, (255, 255, 255), self.atra.rect, 1)
+        
+        
+    # creating pillars and its rects for collision detection
+    def initializePillars(self):
         for coordinate in self.pillarTopLeftPositions:
             pillar = Pillar(coordinate[0], coordinate[1])
             self.sprites.add(pillar)
             self.pillarSprites.add(pillar)
+            self.atra.addObstacle(pillar.copyRect(0.1))
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
