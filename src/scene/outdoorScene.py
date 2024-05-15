@@ -23,6 +23,7 @@ class OutdoorScene(Scene):
     # creating walls and its rects for collision detection
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())
+        # create transparent box for scene transition
         self.addLevelRect(EventHelper.EVENT_SCENELOBBYFRONT, 580, 0, 120, 1)
         self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 530, 40))
         self.rightWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(750, 0, 530, 40))
@@ -52,6 +53,7 @@ class OutdoorScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
+        # check if atra collides with next scene hitbox
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)

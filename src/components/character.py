@@ -14,6 +14,8 @@ class Character(GameEntity, Movable):
         self.currentDirection = DIRECTIONS[0]
         self.currentFrame = 0
         self.animationTick = 0
+        
+        # walking animation for character
         self.images: dict[str, list[pygame.Surface]] = {}
         for direction in DIRECTIONS:
             self.images[direction] = []

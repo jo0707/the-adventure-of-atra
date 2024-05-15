@@ -12,6 +12,14 @@ from src.scene.menuScene import MenuScene
 from src.scene.settingScene import SettingsScene
 from src.utils.eventHelper import EventHelper
 
+"""
+SceneManager class manages the scene transition
+SceneManager will change the current scene based on the event
+1. Capturing key events (keyboard)
+    
+2. 
+"""
+
 class SceneManager:
     def __init__(self, screen: pygame.Surface):
         self.screen = screen
