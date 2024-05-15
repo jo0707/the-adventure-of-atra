@@ -3,8 +3,9 @@ import pygame
 from src.scene.scene import Scene
 
 class SettingsScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
+        self.lastSceneEvent = lastSceneEvent
         self.background = pygame.image.load("assets/background.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
     

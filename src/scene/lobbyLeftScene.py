@@ -6,8 +6,9 @@ from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
 class LobbyLeftScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
+        self.lastSceneEvent = lastSceneEvent
         self.background = pygame.image.load("assets/images/backgrounds/lobbyLeft.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
@@ -15,6 +16,7 @@ class LobbyLeftScene(Scene):
         self.atra.placeRight()
         self.sprites.add(self.atra)
         self.initializeWalls()
+        self.setAtraPosition()
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())
@@ -26,6 +28,12 @@ class LobbyLeftScene(Scene):
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
         self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall])
+    
+    def setAtraPosition(self):
+        if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMLAMPUNG:
+            self.atra.placeTop()
+        if self.lastSceneEvent == EventHelper.EVENT_SCENELOBBYMIDDLE:
+            self.atra.placeRight()
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
