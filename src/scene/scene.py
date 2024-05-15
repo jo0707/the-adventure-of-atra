@@ -32,6 +32,13 @@ class Scene(ABC):
     def update(self):
         pass
     
+    # create a popup that receive text and image path to display
+    # darken the background1
+    def showPopup(self, text: str, imagePath: str):
+        self.textboxes.append(Textbox(text, imagePath))
+        image = pygame.image.load(imagePath).convert_alpha()
+        
+            
     def addLevelRect(self, event: int, x: int, y: int, width: int, height: int):
         self.nextSceneRects[event] = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(x, y, width, height))
 
