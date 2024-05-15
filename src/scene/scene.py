@@ -44,3 +44,7 @@ class Scene(ABC):
 
     def switchSceneEvent(self, nextSceneEvent: int):
         EventHelper.postEvent(nextSceneEvent)
+        
+    def changeMusic(self, musicName: str):
+        pygame.mixer.music.load(f"assets/sounds/{musicName}")
+        pygame.mixer.music.play(-1)
