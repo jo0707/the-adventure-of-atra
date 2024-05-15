@@ -47,4 +47,5 @@ class Scene(ABC):
         
     def changeMusic(self, musicName: str):
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
+        pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)

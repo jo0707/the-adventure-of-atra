@@ -15,6 +15,7 @@ class RoomSumateraUtaraScene(Scene):
         self.atra.placeBottom()
         self.sprites.add(self.atra)
         self.initializeWalls()
+        self.changeMusic("gondangSumateraUtara.mp3")
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())

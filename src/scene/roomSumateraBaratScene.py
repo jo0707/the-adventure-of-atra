@@ -15,6 +15,7 @@ class RoomSumateraBaratScene(Scene):
         self.atra.placeBottom()
         self.sprites.add(self.atra)
         self.initializeWalls()
+        self.changeMusic("galombangSumateraBarat.mp3")
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())

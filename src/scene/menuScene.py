@@ -18,6 +18,7 @@ class MenuScene(Scene):
         buttonY = (ScreenHelper.getWindowY() // 2) - 100
         self.title = Textbox("AdventureAtra!", font=FontHelper.fonts["title1"], size=56)
         self.title.rect.center = (ScreenHelper.getWindowX() // 2, 100)
+        self.changeMusic("backsound.mp3")
         self.sprites.add(
             Button(
                 x=buttonX,
