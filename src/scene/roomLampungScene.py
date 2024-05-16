@@ -12,8 +12,9 @@ from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
 class RoomLampungScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
+        self.lastSceneEvent = lastSceneEvent
         self.background = pygame.image.load("assets/images/backgrounds/room.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
@@ -29,6 +30,7 @@ class RoomLampungScene(Scene):
         self.sprites.add(self.tapisLampung,  self.radenintan2, self.atra, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
         self.initializeWalls()
         self.initializeObstacle()
+        self.changeMusic("tabuhSanakLampung.mp3")
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())

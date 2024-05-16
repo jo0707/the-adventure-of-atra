@@ -1,8 +1,13 @@
 import pygame
 import random
 
-
 class GameEntity(pygame.sprite.Sprite):
+    # imagePath: image will be loaded from this path and used as sprite
+    # x: x coordinate of the sprite
+    # y: y coordinate of the sprite
+    # width: width of the sprite
+    # height: height of the sprite
+    # scale: size of the sprite
     def __init__(self, imagePath: str = "/assets/images/components/pillar.png", x: int = 0, y: int = 0, width: int = 0, height: int = 0, scale: float = 0):
         super().__init__()
         self.image = pygame.image.load(imagePath).convert_alpha()

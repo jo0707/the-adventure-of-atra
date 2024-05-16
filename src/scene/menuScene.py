@@ -9,8 +9,9 @@ from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
 class MenuScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
+        self.lastSceneEvent = lastSceneEvent
         self.background = pygame.image.load("assets/images/backgrounds/menu.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
@@ -18,6 +19,7 @@ class MenuScene(Scene):
         buttonY = (ScreenHelper.getWindowY() // 2) - 100
         self.title = Textbox("AdventureAtra!", font=FontHelper.fonts["title1"], size=56)
         self.title.rect.center = (ScreenHelper.getWindowX() // 2, 100)
+        self.changeMusic("backsound.mp3")
         self.sprites.add(
             Button(
                 x=buttonX,

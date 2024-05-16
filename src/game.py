@@ -5,23 +5,24 @@ from src.scene.sceneManager import SceneManager
 from src.utils.fontHelper import FontHelper
 from src.utils.soundHelper import SoundHelper
 
-"""Game class defines global variables and game loop
+"""
+Game class defines global variables and game loop
 """
 
 class Game:
-    pygame.display.set_caption(WINDOW_TITLE)
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
     running = True
+    # set window title
+    pygame.display.set_caption(WINDOW_TITLE)
+    # Window creation
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # Clock for frame rate
+    clock = pygame.time.Clock()
     
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
         FontHelper.initFonts()
         SoundHelper.initSounds()
-        pygame.mixer_music.load("assets/sounds/backsound.mp3")
-        pygame.mixer_music.play(-1)
-        pygame.mixer_music.set_volume(0.3)
         self.sceneManager = SceneManager(Game.screen)
         
     def onEvent(self):

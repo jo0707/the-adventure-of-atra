@@ -10,8 +10,9 @@ from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
 class LobbyFrontScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
+        self.lastSceneEvent = lastSceneEvent
         self.background = pygame.image.load("assets/images/backgrounds/lobbyFront.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
 
@@ -27,6 +28,7 @@ class LobbyFrontScene(Scene):
         self.atra.placeBottom()
         self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2)
         self.initializeWalls()
+        self.setAtraPosition()
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())
@@ -37,6 +39,12 @@ class LobbyFrontScene(Scene):
         self.leftStair = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 290, 225))
         self.rightStair = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(987, 0, 290, 225))
         self.atra.addObstacles([self.frontLeftTable.copyRect(0.8), self.frontRightTable.copyRect(0.8), self.leftWall, self.rightWall, self.leftStair, self.rightStair])
+    
+    def setAtraPosition(self):
+        if self.lastSceneEvent == EventHelper.EVENT_SCENEGAME:
+            self.atra.placeBottom()
+        if self.lastSceneEvent == EventHelper.EVENT_SCENELOBBYMIDDLE:
+            self.atra.placeTop()
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
