@@ -1,7 +1,9 @@
 import pygame
 
 from src.components.atra import Atra
-from src.components.sumateraUtara.bajuBatak import BajuBatak
+from src.components.sumateraUtara.bajuBatakSumateraUtara import BajuBatakSumateraUtara
+from src.components.sumateraUtara.kainUlosSumateraUtara import KainUlosSumateraUtara
+from src.components.sumateraUtara.sisingamangaradjaSumateraUtara import SisingamangaradjaSumateraUtara
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -15,8 +17,10 @@ class RoomSumateraUtaraScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.bajuBatak = BajuBatak(470,180)
-        self.sprites.add(self.atra, self.bajuBatak)
+        self.bajuBatakSumateraUtara = BajuBatakSumateraUtara(470,180)
+        self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
+        self.sisingamangaradjaSumateraUtara = SisingamangaradjaSumateraUtara(245,30)
+        self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
         self.initializeWalls()
         self.changeMusic("oTanoBatakSumateraUtara.mp3")
     
