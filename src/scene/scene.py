@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List
 import pygame
 
+from src.components.interactableItem import InteractableItem
 from src.components.textbox import Textbox
 from src.utils.eventHelper import EventHelper
 
@@ -13,10 +14,16 @@ Scene class will have all the same methods that will be implemented by the child
 
 class Scene(ABC):
     def __init__(self, screen: pygame.Surface):
-        self.sprites = pygame.sprite.Group()
-        self.textboxes: List[Textbox] = []
         self.screen = screen
+        # contains all sprites in scene
+        self.sprites = pygame.sprite.Group()
+        # contains all interacable sprites in scene (InteractableItem)
+        self.itemSprites = pygame.sprite.Group()
+        # contains all textboxes in scene
+        self.textboxes: List[Textbox] = []
+        # contains all the transparent rects for next scene
         self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
+        self.lastCollidedItem: InteractableItem | None = None
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):

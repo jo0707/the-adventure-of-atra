@@ -28,6 +28,7 @@ class RoomLampungScene(Scene):
         self.kerisLampung = KerisLampung(1067, 198)
         self.kerisLampung2 = KerisLampung(1067, 425)
         self.sprites.add(self.tapisLampung,  self.radenintan2, self.atra, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
+        self.itemSprites.add(self.tapisLampung, self.radenintan2, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
         self.initializeWalls()
         self.initializeObstacle()
         self.changeMusic("tabuhSanakLampung.mp3")
@@ -44,13 +45,11 @@ class RoomLampungScene(Scene):
 
     def initializeObstacle(self):
         self.atra.addObstacles([
-            # self.tapisLampung.copyRect(0.6), 
-            # self.radenintan2.copyRect(0.6), 
-            self.prasastiDadakLampung.copyRect(0.4), 
-            self.prasastiBungkukLampung.copyRect(0.4), 
-            self.kerisLampung.copyRect(0.4), 
-            self.kerisLampung2.copyRect(0.4), 
-            self.sigerLampung.copyRect(0.4)
+            self.prasastiDadakLampung.copyRect(0.3), 
+            self.prasastiBungkukLampung.copyRect(0.3), 
+            self.kerisLampung.copyRect(0.3), 
+            self.kerisLampung2.copyRect(0.3), 
+            self.sigerLampung.copyRect(0.3)
         ])
     
     def onKeyDown(self, keys):
@@ -69,6 +68,15 @@ class RoomLampungScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
+            
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+        
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem

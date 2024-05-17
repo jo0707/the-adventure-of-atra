@@ -1,8 +1,8 @@
 import pygame
 import random
 
-from src.components.gameEntity import GameEntity
+from src.components.interactableItem import InteractableItem
 
-class KainUlosSumateraUtara(GameEntity):
+class KainUlosSumateraUtara(InteractableItem):
     def __init__(self, x, y):
         super().__init__("assets/images/components/sumateraUtara/kainUlos.png", x, y, scale=1)

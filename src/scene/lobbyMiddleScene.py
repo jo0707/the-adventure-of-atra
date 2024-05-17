@@ -22,7 +22,7 @@ class LobbyMiddleScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.sumateraStatue = SumaterStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.sumateraStatue = SumaterStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2, )
         self.wallMap = WallMap(179, 40)
         self.wallText = WallText(829, 71)
         self.visitor1 = Visitor1(900, 600)
@@ -30,6 +30,7 @@ class LobbyMiddleScene(Scene):
         self.visitor2 = Visitor2(900, 200)
         self.staff = Staff(900, 90)
         self.sprites.add(self.sumateraStatue, self.wallMap, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
+        self.itemSprites.add(self.sumateraStatue, self.wallMap)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -72,6 +73,15 @@ class LobbyMiddleScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
+            
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+                
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem

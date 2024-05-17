@@ -21,6 +21,7 @@ class RoomSumateraUtaraScene(Scene):
         self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
         self.sisingamangaradjaSumateraUtara = SisingamangaradjaSumateraUtara(245,30)
         self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
+        self.itemSprites.add(self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
         self.initializeWalls()
         self.changeMusic("oTanoBatakSumateraUtara.mp3")
     
@@ -50,6 +51,15 @@ class RoomSumateraUtaraScene(Scene):
     def update(self):
         for sprite in self.sprites:
             sprite.update()
+            
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+                
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem

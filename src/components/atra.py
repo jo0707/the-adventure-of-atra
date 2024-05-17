@@ -11,6 +11,7 @@ class Atra(Character):
         self.isKeyDown = False  
         self.obstacles = []    
         self.clamps = []  
+        self.firstTickColliding = False
         
     def onKeyDown(self, keys):
         originalX = self.rect.x
@@ -46,11 +47,20 @@ class Atra(Character):
         if self.rect.collidelist(self.obstacles) != -1:
             self.rect.x = originalX
             self.rect.y = originalY
-            
+         
+    """Always insert the copied rect to the obstacles list"""   
     def addObstacles(self, obstacles: list[pygame.Rect]):
+        # copy rect instead using real sprite rect
+        # because we need to inflate the copied rect
+        # so the collision with real sprite rect will happen
+        # but the movement of atra will be based on the copied and inflated rect
+        for obstacle in obstacles:
+            obstacle.inflate_ip(-4,-4)
         self.obstacles.extend(obstacles)
         
+    """Always insert the copied rect to the obstacles list"""   
     def addObstacle(self, obstacle: pygame.Rect):
+        obstacle.inflate_ip(-4,-4)
         self.obstacles.append(obstacle)
         
     def addClampObstacle(self, obstacle: pygame.Rect):
