@@ -4,6 +4,9 @@ from src.components.atra import Atra
 from src.components.sumateraUtara.bajuBatakSumateraUtara import BajuBatakSumateraUtara
 from src.components.sumateraUtara.kainUlosSumateraUtara import KainUlosSumateraUtara
 from src.components.sumateraUtara.sisingamangaradjaSumateraUtara import SisingamangaradjaSumateraUtara
+from src.components.sumateraUtara.parasastiLobuTuaSumateraUtara import PrasastiLobuTuaSumateraUtara
+from src.components.sumateraUtara.prasastiBatuganaSumateraUtara import PrasastiBatuganaSumateraUtara
+from src.components.sumateraUtara.pisoGajaSumateraUtara import PisoGajaSumateraUtara
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -20,7 +23,10 @@ class RoomSumateraUtaraScene(Scene):
         self.bajuBatakSumateraUtara = BajuBatakSumateraUtara(470,180)
         self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
         self.sisingamangaradjaSumateraUtara = SisingamangaradjaSumateraUtara(245,30)
-        self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
+        self.prasastiLobuTuaSumateraUtara = PrasastiLobuTuaSumateraUtara(1000,450)
+        self.prasastiBatuganaSumateraUtara = PrasastiBatuganaSumateraUtara(1000,200)
+        self.pisoGajaSumateraUtara = PisoGajaSumateraUtara(100,450)
+        self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
         self.initializeWalls()
         self.changeMusic("oTanoBatakSumateraUtara.mp3")
     
