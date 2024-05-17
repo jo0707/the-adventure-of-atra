@@ -3,6 +3,7 @@ import pygame
 from src.components.atra import Atra
 from src.components.badakStatue import BadakStatue
 from src.components.logoSumateraBarat import LogoSumateraBarat
+from src.components.kursi import Kursi
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -18,7 +19,9 @@ class LobbyRightScene(Scene):
         self.atra.placeLeft()
         self.badakStatue = BadakStatue(ScreenHelper.getWindowX() / 2 ,ScreenHelper.getWindowY() / 2)
         self.logoSumateraBarat = LogoSumateraBarat(950, 30)
-        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.atra)
+        self.kursi1 = Kursi(72, 556)
+        self.kursi2 = Kursi(924, 556)
+        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.kursi1, self.kursi2, self.atra)
         self.itemSprites.add(self.badakStatue, self.logoSumateraBarat)
         self.initializeWalls()
         self.setAtraPosition()

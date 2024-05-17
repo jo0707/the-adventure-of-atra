@@ -3,6 +3,7 @@ import pygame
 from src.components.atra import Atra
 from src.components.gajahStatue import GajahStatue
 from src.components.logoLampung import LogoLampung
+from src.components.kursi import Kursi
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -18,7 +19,9 @@ class LobbyLeftScene(Scene):
         self.atra.placeRight()
         self.gajahStatue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
         self.logoLampung = LogoLampung(950, 30)
-        self.sprites.add(self.gajahStatue, self.logoLampung, self.atra)
+        self.kursi1 = Kursi(72, 556)
+        self.kursi2 = Kursi(924, 556)
+        self.sprites.add(self.gajahStatue, self.logoLampung, self.kursi1, self.kursi2, self.atra)
         self.itemSprites.add(self.gajahStatue, self.logoLampung)
         self.initializeWalls()
         self.setAtraPosition()
