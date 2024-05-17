@@ -2,6 +2,7 @@ import pygame
 
 from src.components.atra import Atra
 from src.components.gajahStatue import GajahStatue
+from src.components.logoLampung import LogoLampung
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -16,8 +17,9 @@ class LobbyLeftScene(Scene):
         self.atra = Atra()
         self.atra.placeRight()
         self.gajahStatue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
-        self.sprites.add(self.atra, self.gajahStatue)
-        self.itemSprites.add(self.gajahStatue)
+        self.logoLampung = LogoLampung(950, 30)
+        self.sprites.add(self.gajahStatue, self.logoLampung, self.atra)
+        self.itemSprites.add(self.gajahStatue, self.logoLampung)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -30,7 +32,7 @@ class LobbyLeftScene(Scene):
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
-        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.gajahStatue.copyRect(0.1)])
+        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.gajahStatue.copyRect(0.1, 100)])
     
     def setAtraPosition(self):
         if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMLAMPUNG:

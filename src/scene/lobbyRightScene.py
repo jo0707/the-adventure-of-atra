@@ -2,6 +2,7 @@ import pygame
 
 from src.components.atra import Atra
 from src.components.badakStatue import BadakStatue
+from src.components.logoSumateraBarat import LogoSumateraBarat
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -16,8 +17,9 @@ class LobbyRightScene(Scene):
         self.atra = Atra()
         self.atra.placeLeft()
         self.badakStatue = BadakStatue(ScreenHelper.getWindowX() / 2 ,ScreenHelper.getWindowY() / 2)
-        self.sprites.add(self.atra, self.badakStatue)
-        self.itemSprites.add(self.badakStatue)
+        self.logoSumateraBarat = LogoSumateraBarat(950, 30)
+        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.atra)
+        self.itemSprites.add(self.badakStatue, self.logoSumateraBarat)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -30,7 +32,7 @@ class LobbyRightScene(Scene):
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
-        self.atra.addObstacles([self.rightWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.badakStatue.copyRect(0.1)])
+        self.atra.addObstacles([self.rightWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.badakStatue.copyRect(0.1, 100)])
         
     def setAtraPosition(self):
         if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMSUMATERABARAT:
