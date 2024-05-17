@@ -1,6 +1,7 @@
 import pygame
 
 from src.components.atra import Atra
+from src.components.gajahStatue import GajahStatue
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -14,7 +15,8 @@ class LobbyLeftScene(Scene):
         
         self.atra = Atra()
         self.atra.placeRight()
-        self.sprites.add(self.atra)
+        self.gajahStautue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.sprites.add(self.atra, self.gajahStautue)
         self.initializeWalls()
         self.setAtraPosition()
     
