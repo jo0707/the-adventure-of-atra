@@ -1,5 +1,6 @@
 import pygame
 
+from src.components.sumateraBarat.rumahGadang import RumahGadang
 from src.components.atra import Atra
 from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
@@ -14,7 +15,9 @@ class RoomSumateraBaratScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.sprites.add(self.atra)
+        self.rumahGadang = RumahGadang(525, 340)
+        self.sprites.add(self.atra, self.rumahGadang)
+        self.itemSprites.add(self.rumahGadang)
         self.initializeWalls()
         self.changeMusic("galombangSumateraBarat.mp3")
     
