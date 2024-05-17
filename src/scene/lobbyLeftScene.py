@@ -15,8 +15,9 @@ class LobbyLeftScene(Scene):
         
         self.atra = Atra()
         self.atra.placeRight()
-        self.gajahStautue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
-        self.sprites.add(self.atra, self.gajahStautue)
+        self.gajahStatue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.sprites.add(self.atra, self.gajahStatue)
+        self.itemSprites.add(self.gajahStatue)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -29,7 +30,7 @@ class LobbyLeftScene(Scene):
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
-        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall])
+        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.gajahStatue.copyRect(0.1)])
     
     def setAtraPosition(self):
         if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMLAMPUNG:
@@ -56,3 +57,11 @@ class LobbyLeftScene(Scene):
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem

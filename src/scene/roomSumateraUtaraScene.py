@@ -23,13 +23,13 @@ class RoomSumateraUtaraScene(Scene):
         self.bajuBatakSumateraUtara = BajuBatakSumateraUtara(470,180)
         self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
         self.sisingamangaradjaSumateraUtara = SisingamangaradjaSumateraUtara(245,30)
-        self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
-        self.itemSprites.add(self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara)
         self.prasastiLobuTuaSumateraUtara = PrasastiLobuTuaSumateraUtara(1000,450)
         self.prasastiBatuganaSumateraUtara = PrasastiBatuganaSumateraUtara(1000,200)
         self.pisoGajaSumateraUtara = PisoGajaSumateraUtara(100,450)
-        self.sprites.add(self.atra, self.bajuBatakSumateraUtara, self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
+        self.sprites.add(self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara, self.atra, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
+        self.itemSprites.add(self.kainUlosSumateraUtara, self.sisingamangaradjaSumateraUtara, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
         self.initializeWalls()
+        self.initializeObstacle()
         self.changeMusic("oTanoBatakSumateraUtara.mp3")
     
     def initializeWalls(self):
@@ -42,6 +42,14 @@ class RoomSumateraUtaraScene(Scene):
         self.topWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, ScreenHelper.getWindowX(), 60))
         self.atra.addObstacles([self.leftWall, self.rightWall, self.leftBottomWall, self.rightBottomWall, self.topWall])
     
+    def initializeObstacle(self):
+        self.atra.addObstacles([
+            self.prasastiLobuTuaSumateraUtara.copyRect(0.3), 
+            self.prasastiBatuganaSumateraUtara.copyRect(0.3), 
+            self.pisoGajaSumateraUtara.copyRect(0.3), 
+            self.bajuBatakSumateraUtara.copyRect(0.3)
+        ])
+
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
     
