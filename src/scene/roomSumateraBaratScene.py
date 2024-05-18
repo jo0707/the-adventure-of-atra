@@ -1,5 +1,8 @@
 import pygame
 
+from src.components.sumateraBarat.portraitSumbar import PortraitSumbar
+from src.components.sumateraBarat.prasastiKuburajo import PrasastiKuburajo
+from src.components.sumateraBarat.kainSongket import KainSongket
 from src.components.sumateraBarat.karih import Karih
 from src.components.sumateraBarat.jamGadang import JamGadang
 from src.components.sumateraBarat.rumahGadang import RumahGadang
@@ -17,11 +20,14 @@ class RoomSumateraBaratScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.karih = Karih(520, 330)
-        self.rumahGadang = RumahGadang(900, 410)
-        self.jamGadang = JamGadang(200, 340)
-        self.sprites.add(self.atra, self.rumahGadang, self.jamGadang, self.karih)
-        self.itemSprites.add(self.rumahGadang, self.jamGadang, self.karih)
+        self.portraitSumbar = PortraitSumbar(900, 30)
+        self.prasastiKuburajo = PrasastiKuburajo(950, 200)
+        self.kainSongket = KainSongket(210, 40)
+        self.karih = Karih(525, 330)
+        self.rumahGadang = RumahGadang(900, 418)
+        self.jamGadang = JamGadang(200, 335)
+        self.sprites.add(self.kainSongket, self.portraitSumbar, self.atra, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
+        self.itemSprites.add(self.kainSongket, self.portraitSumbar, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
         self.initializeWalls()
         self.changeMusic("galombangSumateraBarat.mp3")
     
