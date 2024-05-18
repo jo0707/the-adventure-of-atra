@@ -1,5 +1,7 @@
 import pygame
 
+from src.components.sumateraBarat.karih import Karih
+from src.components.sumateraBarat.jamGadang import JamGadang
 from src.components.sumateraBarat.rumahGadang import RumahGadang
 from src.components.atra import Atra
 from src.scene.scene import Scene
@@ -15,9 +17,11 @@ class RoomSumateraBaratScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.rumahGadang = RumahGadang(525, 340)
-        self.sprites.add(self.atra, self.rumahGadang)
-        self.itemSprites.add(self.rumahGadang)
+        self.karih = Karih(520, 330)
+        self.rumahGadang = RumahGadang(900, 410)
+        self.jamGadang = JamGadang(200, 340)
+        self.sprites.add(self.atra, self.rumahGadang, self.jamGadang, self.karih)
+        self.itemSprites.add(self.rumahGadang, self.jamGadang, self.karih)
         self.initializeWalls()
         self.changeMusic("galombangSumateraBarat.mp3")
     
