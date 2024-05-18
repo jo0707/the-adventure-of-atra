@@ -1,6 +1,3 @@
-import pygame
-import random
-
 from src.components.interactableItem import InteractableItem
 
 class KerisLampung(InteractableItem):

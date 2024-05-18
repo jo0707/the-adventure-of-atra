@@ -64,6 +64,10 @@ class Scene(ABC):
     def switchSceneEvent(self, nextSceneEvent: int):
         EventHelper.postEvent(nextSceneEvent)
         
+    def showItemPreview(self, item: InteractableItem):
+        self.textboxes.append(Textbox())
+        
+        
     def changeMusic(self, musicName: str):
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
         pygame.mixer.music.set_volume(0.3)
