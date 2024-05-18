@@ -41,6 +41,14 @@ class RoomSumateraBaratScene(Scene):
         self.topWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, ScreenHelper.getWindowX(), 60))
         self.atra.addObstacles([self.leftWall, self.rightWall, self.leftBottomWall, self.rightBottomWall, self.topWall])
     
+    def initializeObstacle(self):
+        self.atra.addObstacles([
+            self.prasastiKuburajo.copyRect(0.3), 
+            self.karih.copyRect(0.3), 
+            self.rumahGadang.copyRect(0.3), 
+            self.jamGadang.copyRect(0.3),
+        ])
+
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
     
@@ -60,3 +68,11 @@ class RoomSumateraBaratScene(Scene):
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+                
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem
