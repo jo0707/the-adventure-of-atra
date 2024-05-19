@@ -1,6 +1,6 @@
 import pygame
 
-from src.components.sumateraBarat.portraitSumbar import PortraitSumbar
+from src.components.sumateraBarat.tuankuImamBonjol import TuankuImamBonjol
 from src.components.sumateraBarat.prasastiKuburajo import PrasastiKuburajo
 from src.components.sumateraBarat.kainSongket import KainSongket
 from src.components.sumateraBarat.karih import Karih
@@ -20,7 +20,7 @@ class RoomSumateraBaratScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.portraitSumbar = PortraitSumbar(900, 30)
+        self.portraitSumbar = TuankuImamBonjol(900, 30)
         self.prasastiKuburajo = PrasastiKuburajo(950, 200)
         self.kainSongket = KainSongket(210, 40)
         self.karih = Karih(525, 330)
