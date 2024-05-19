@@ -8,4 +8,4 @@ class PrasastiBungkukLampung(InteractableItem):
         super().__init__("assets/images/components/lampung/prasastiBungkuk.png", x, y, scale=1,
                          title= 'Prasasti Bungkuk',
                          description= 'Prasasti ini berisi 13 baris Huruf Pallawa dengan Bahasa Melayu Kuno ini masih bercerita tentang kejayaan Kerajaan Sriwijaya yang akan mengutuk siapapun rakyatnya yang dianggap tidak tunduk kepada pemerintahan.',
-                         realImageName='assets/images/real/lampung/prasastiBungkuk.png')
+                         realImageName='lampung/prasastiBungkuk.png')

@@ -84,6 +84,8 @@ class LobbyMiddleScene(Scene):
         collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
         if collidedItem is not None:
             collidedItem.onPlayerCollision(True)
+            self.showItemPreview(collidedItem)
         elif self.lastCollidedItem is not None:
             self.lastCollidedItem.onPlayerCollision(False)
+            
         self.lastCollidedItem = collidedItem
