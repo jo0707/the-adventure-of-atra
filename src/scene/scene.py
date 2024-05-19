@@ -67,9 +67,10 @@ class Scene(ABC):
         EventHelper.postEvent(nextSceneEvent)
         
     def showItemPreview(self, item: InteractableItem):
-        self.itemPreview = ItemPreview(320, 480, item) 
+        self.itemPreview = ItemPreview(320, 480, item)
         
-    def changeMusic(self, musicName: str):
+    def changeMusic(self, musicName: str, volume: float = 0.3):
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
-        pygame.mixer.music.set_volume(0.3)
+        # pygame.mixer.music.set_volume(volume)
+        pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(-1)
