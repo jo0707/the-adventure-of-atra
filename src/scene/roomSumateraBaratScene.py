@@ -1,5 +1,10 @@
 import pygame
 
+from src.components.sumateraBarat.tuankuImamBonjol import TuankuImamBonjol
+from src.components.sumateraBarat.prasastiKuburajo import PrasastiKuburajo
+from src.components.sumateraBarat.kainSongket import KainSongket
+from src.components.sumateraBarat.karih import Karih
+from src.components.sumateraBarat.jamGadang import JamGadang
 from src.components.sumateraBarat.rumahGadang import RumahGadang
 from src.components.atra import Atra
 from src.scene.scene import Scene
@@ -15,10 +20,16 @@ class RoomSumateraBaratScene(Scene):
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.rumahGadang = RumahGadang(525, 340)
-        self.sprites.add(self.atra, self.rumahGadang)
-        self.itemSprites.add(self.rumahGadang)
+        self.portraitSumbar = TuankuImamBonjol(900, 30)
+        self.prasastiKuburajo = PrasastiKuburajo(950, 200)
+        self.kainSongket = KainSongket(210, 40)
+        self.karih = Karih(525, 330)
+        self.rumahGadang = RumahGadang(900, 418)
+        self.jamGadang = JamGadang(200, 335)
+        self.sprites.add(self.kainSongket, self.portraitSumbar, self.atra, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
+        self.itemSprites.add(self.kainSongket, self.portraitSumbar, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
         self.initializeWalls()
+        self.initializeObstacle()
         self.changeMusic("galombangSumateraBarat.mp3")
     
     def initializeWalls(self):
@@ -31,6 +42,14 @@ class RoomSumateraBaratScene(Scene):
         self.topWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, ScreenHelper.getWindowX(), 60))
         self.atra.addObstacles([self.leftWall, self.rightWall, self.leftBottomWall, self.rightBottomWall, self.topWall])
     
+    def initializeObstacle(self):
+        self.atra.addObstacles([
+            self.prasastiKuburajo.copyRect(0.3), 
+            self.karih.copyRect(0.3), 
+            self.rumahGadang.copyRect(0.3), 
+            self.jamGadang.copyRect(0.3),
+        ])
+
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
     
@@ -50,3 +69,11 @@ class RoomSumateraBaratScene(Scene):
         for event, rect in self.nextSceneRects.items():
             if self.atra.rect.colliderect(rect):
                 self.switchSceneEvent(event)
+                
+        # collided items always instance of InteractableItem
+        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
+        if collidedItem is not None:
+            collidedItem.onPlayerCollision(True)
+        elif self.lastCollidedItem is not None:
+            self.lastCollidedItem.onPlayerCollision(False)
+        self.lastCollidedItem = collidedItem
