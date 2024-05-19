@@ -29,6 +29,7 @@ class RoomSumateraBaratScene(Scene):
         self.sprites.add(self.kainSongket, self.portraitSumbar, self.atra, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
         self.itemSprites.add(self.kainSongket, self.portraitSumbar, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
         self.initializeWalls()
+        self.initializeObstacle()
         self.changeMusic("galombangSumateraBarat.mp3")
     
     def initializeWalls(self):
