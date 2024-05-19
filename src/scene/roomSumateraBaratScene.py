@@ -44,10 +44,10 @@ class RoomSumateraBaratScene(Scene):
     
     def initializeObstacle(self):
         self.atra.addObstacles([
-            self.prasastiKuburajo.copyRect(0.3), 
-            self.karih.copyRect(0.3), 
-            self.rumahGadang.copyRect(0.3), 
-            self.jamGadang.copyRect(0.3),
+            self.prasastiKuburajo.copyRect(0.2), 
+            self.karih.copyRect(0.3, 5), 
+            self.rumahGadang.copyRect(0.3, 5), 
+            self.jamGadang.copyRect(0.3, 10),
         ])
 
     def onKeyDown(self, keys):
