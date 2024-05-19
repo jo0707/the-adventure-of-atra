@@ -23,12 +23,14 @@ class ItemDetail(pygame.sprite.Group):
         self.titleTextbox = Textbox(interactableItem.title, x + self.pad, y + self.pad, 24, pygame.colordict.THECOLORS['black'])
         self.titleTextbox.rect.topright = (x + self.width - self.pad, y + self.pad)
         
-        self.descriptionTextbox = Textbox(interactableItem.description, size=18, color=pygame.colordict.THECOLORS['black'])
-        self.descriptionTextbox.rect.bottomright = (x + self.width - self.pad, y + self.height - self.pad)
+        self.descriptionSurface = pygame.surface.Surface((self.width*2//3 - self.pad*2, self.height - self.pad*2), pygame.SRCALPHA, 32)
+        self.descriptionRect = self.descriptionSurface.get_rect(topleft=(self.image.rect.right + 24, self.titleTextbox.rect.bottom + 24))
+        self.descriptionTextbox = Textbox(interactableItem.description, size=12, color=pygame.colordict.THECOLORS['black'], wrap=True)
         
         self.add(self.background, self.image)
         
     def draw(self, surface: pygame.Surface, bgsurf: pygame.Surface | None = None, special_flags: int = 0) -> List[pygame.Rect]:
         super().draw(surface, bgsurf, special_flags)
-        self.titleTextbox.display(surface)
-        self.descriptionTextbox.display(surface)
+        surface.blit(self.descriptionSurface, self.descriptionRect)
+        self.titleTextbox.display(self.background.image)
+        self.descriptionTextbox.display(self.descriptionSurface)
