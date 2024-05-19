@@ -1,5 +1,6 @@
 import pygame
 
+from src.scene.gameScene import GameScene
 from src.components.visitor1 import Visitor1
 from src.components.staff import Staff
 from src.components.visitor2 import Visitor2
@@ -9,17 +10,13 @@ from src.components.wallText import WallText
 from src.components.sumateraStatue import SumaterStatue
 from src.components.logoSumateraUtara import LogoSumateraUtara
 from src.components.atra import Atra
-from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyMiddleScene(Scene):
+class LobbyMiddleScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyMiddle.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyMiddle.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
-        print()
         
         self.atra = Atra()
         self.atra.placeBottom()
@@ -31,8 +28,10 @@ class LobbyMiddleScene(Scene):
         self.visitor3 = Visitor3(250, 85)
         self.visitor2 = Visitor2(900, 200)
         self.staff = Staff(900, 90)
+        
         self.sprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
-        self.itemSprites.add(self.sumateraStatue, self.wallMap,self.logoSumateraUtara)
+        self.itemSprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara)
+        
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -69,23 +68,7 @@ class LobbyMiddleScene(Scene):
         pass
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-            
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
-                
-        # collided items always instance of InteractableItem
-        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
-        if collidedItem is not None:
-            collidedItem.onPlayerCollision(True)
-            self.showItemPreview(collidedItem)
-        elif self.lastCollidedItem is not None:
-            self.lastCollidedItem.onPlayerCollision(False)
-            
-        self.lastCollidedItem = collidedItem
+        super().update()

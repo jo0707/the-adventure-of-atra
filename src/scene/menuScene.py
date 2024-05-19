@@ -1,9 +1,9 @@
 import pygame
 
+from src.scene.scene import Scene
 from src.components.button import Button
 from src.components.clickable import Clickable
 from src.components.textbox import Textbox
-from src.scene.scene import Scene
 from src.utils.fontHelper import FontHelper
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
@@ -17,7 +17,7 @@ class MenuScene(Scene):
         
         buttonX = ScreenHelper.getWindowX() // 2 - 150
         buttonY = (ScreenHelper.getWindowY() // 2) - 100
-        self.title = Textbox("AdventureAtra!", font=FontHelper.fonts["title1"], size=56)
+        self.title = Textbox("The Adventure of Atra!", font=FontHelper.fonts["title1"], size=56)
         self.title.rect.center = (ScreenHelper.getWindowX() // 2, 100)
         self.changeMusic("backsound.mp3")
         self.sprites.add(

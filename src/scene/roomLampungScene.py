@@ -7,16 +7,14 @@ from src.components.lampung.prasastiDadakLampung import PrasastiDadakLampung
 from src.components.lampung.sigerLampung import SigerLampung
 from src.components.lampung.tapisLampung import TapisLampung
 from src.components.atra import Atra
-from src.scene.scene import Scene
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class RoomLampungScene(Scene):
+class RoomLampungScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/room.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/room.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
         self.atra.placeBottom()
@@ -27,8 +25,10 @@ class RoomLampungScene(Scene):
         self.sigerLampung = SigerLampung(505, 210)
         self.kerisLampung = KerisLampung(1067, 198)
         self.kerisLampung2 = KerisLampung(1067, 425)
+        
         self.sprites.add(self.tapisLampung,  self.radenintan2, self.atra, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
         self.itemSprites.add(self.tapisLampung, self.radenintan2, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
+        
         self.initializeWalls()
         self.initializeObstacle()
         self.changeMusic("tabuhSanakLampung.mp3")
@@ -62,21 +62,7 @@ class RoomLampungScene(Scene):
         pass
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-            
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
-        
-        # collided items always instance of InteractableItem
-        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
-        if collidedItem is not None:
-            collidedItem.onPlayerCollision(True)
-        elif self.lastCollidedItem is not None:
-            self.lastCollidedItem.onPlayerCollision(False)
-        self.lastCollidedItem = collidedItem
+        super().update()

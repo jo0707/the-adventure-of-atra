@@ -4,16 +4,14 @@ from src.components.atra import Atra
 from src.components.badakStatue import BadakStatue
 from src.components.logoSumateraBarat import LogoSumateraBarat
 from src.components.kursi import Kursi
-from src.scene.scene import Scene
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyRightScene(Scene):
+class LobbyRightScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyRight.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyRight.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
         self.atra.placeLeft()
@@ -53,20 +51,7 @@ class LobbyRightScene(Scene):
         pass
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
-
-        # collided items always instance of InteractableItem
-        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
-        if collidedItem is not None:
-            collidedItem.onPlayerCollision(True)
-        elif self.lastCollidedItem is not None:
-            self.lastCollidedItem.onPlayerCollision(False)
-        self.lastCollidedItem = collidedItem
+        super().update()

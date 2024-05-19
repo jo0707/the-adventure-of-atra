@@ -18,14 +18,8 @@ class Scene(ABC):
         self.screen = screen
         # contains all sprites in scene
         self.sprites = pygame.sprite.Group()
-        # contains all interacable sprites in scene (InteractableItem)
-        self.itemSprites = pygame.sprite.Group()
         # contains all textboxes in scene
         self.textboxes: List[Textbox] = []
-        # contains all the transparent rects for next scene
-        self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
-        self.itemPreview: ItemPreview | None = None
-        self.lastCollidedItem: InteractableItem | None = None
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
@@ -39,8 +33,6 @@ class Scene(ABC):
     def onClick(self, position: tuple[int, int]):
         pass
 
-    # display method is used to draw the sprites and textboxes on the screen
-    # this method only draws the sprites and textboxes
     @abstractmethod
     def display(self):
         pass
@@ -48,26 +40,12 @@ class Scene(ABC):
     # update method is used to update the sprites condition and textboxes
     # this method only updates the sprites and textboxes logic
     # ex: moving the sprite, changing the text, etc
+    @abstractmethod
     def update(self):
-        if self.itemPreview:
-            self.itemPreview.update()
-    
-    # create a popup that receive text and image path to display
-    # darken the background
-    def showPopup(self, text: str, imagePath: str):
-        self.textboxes.append(Textbox(text, imagePath))
-        image = pygame.image.load(imagePath).convert_alpha()
-        
-    # create new transparent box to switch scene when atra collides with it
-    # and when atra collides with it, it will post the desired event from parameter
-    def addLevelRect(self, event: int, x: int, y: int, width: int, height: int):
-        self.nextSceneRects[event] = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(x, y, width, height))
+        pass
 
     def switchSceneEvent(self, nextSceneEvent: int):
         EventHelper.postEvent(nextSceneEvent)
-        
-    def showItemPreview(self, item: InteractableItem):
-        self.itemPreview = ItemPreview(320, 480, item)
         
     def changeMusic(self, musicName: str, volume: float = 0.3):
         pygame.mixer.music.load(f"assets/sounds/{musicName}")

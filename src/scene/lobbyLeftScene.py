@@ -4,16 +4,14 @@ from src.components.atra import Atra
 from src.components.gajahStatue import GajahStatue
 from src.components.logoLampung import LogoLampung
 from src.components.kursi import Kursi
-from src.scene.scene import Scene
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyLeftScene(Scene):
+class LobbyLeftScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyLeft.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyLeft.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
         self.atra.placeRight()
@@ -22,6 +20,7 @@ class LobbyLeftScene(Scene):
         self.kursi1 = Kursi(72, 556)
         self.kursi2 = Kursi(924, 556)
         self.sprites.add(self.gajahStatue, self.logoLampung, self.kursi1, self.kursi2, self.atra)
+        
         self.itemSprites.add(self.gajahStatue, self.logoLampung)
         self.initializeWalls()
         self.setAtraPosition()
@@ -30,6 +29,7 @@ class LobbyLeftScene(Scene):
         self.atra.addClampObstacle(self.background.get_rect())
         self.addLevelRect(EventHelper.EVENT_SCENEROOMLAMPUNG, 506, 0, 265, 1)
         self.addLevelRect(EventHelper.EVENT_SCENELOBBYMIDDLE, ScreenHelper.getWindowX()-1, 185, 1, 498)
+        
         self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 28, ScreenHelper.getWindowY()))
         self.bottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, ScreenHelper.getWindowY() - 36, ScreenHelper.getWindowX(), 36))
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
@@ -53,20 +53,7 @@ class LobbyLeftScene(Scene):
         pass
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
-
-        # collided items always instance of InteractableItem
-        collidedItem = pygame.sprite.spritecollideany(self.atra, self.itemSprites)
-        if collidedItem is not None:
-            collidedItem.onPlayerCollision(True)
-        elif self.lastCollidedItem is not None:
-            self.lastCollidedItem.onPlayerCollision(False)
-        self.lastCollidedItem = collidedItem
+        super().update()    
