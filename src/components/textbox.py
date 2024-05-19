@@ -22,3 +22,8 @@ class Textbox():
         self.__text = text
         [self.surf, self.rect] = self.font.render(self.__text, True, self.color)
         self.rect.topleft = (self.x, self.y)
+        
+    def wrapText(self, width):
+        self.__text = self.font.render_textrect(self.__text, (self.x, self.y, width, 0), self.color)
+        [self.surf, self.rect] = self.font.render(self.__text, True, self.color)
+        self.rect.topleft = (self.x, self.y)

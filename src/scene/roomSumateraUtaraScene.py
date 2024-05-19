@@ -55,6 +55,7 @@ class RoomSumateraUtaraScene(GameScene):
 
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass

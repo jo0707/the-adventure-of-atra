@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pygame
 
+from src.components.itemDescription import ItemDetail
 from src.scene.scene import Scene
 from src.components.itemPreview import ItemPreview
 from src.components.interactableItem import InteractableItem
@@ -23,15 +24,17 @@ class GameScene(Scene, ABC):
         # contains all the transparent rects for next scene
         self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
         self.itemPreview: ItemPreview | None = None
+        self.itemDetail: ItemDetail | None = None
         self.lastCollidedItem: InteractableItem | None = None
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
         pass
     
-    @abstractmethod
     def onKeyDown(self, keys):
-        pass
+        if keys[pygame.K_e] and self.itemPreview:
+            self.itemDetail = ItemDetail(128, 72, self.itemPreview.interactableItem)
+            self.itemPreview = None
 
     @abstractmethod
     def onClick(self, position: tuple[int, int]):
@@ -44,6 +47,9 @@ class GameScene(Scene, ABC):
         self.sprites.draw(self.screen)
         if self.itemPreview:
             self.itemPreview.draw(self.screen)
+        if self.itemDetail:
+            self.itemDetail.draw(self.screen)
+            
 
     # update method is used to update the sprites condition and textboxes
     # this method only updates the sprites and textboxes logic
@@ -66,7 +72,6 @@ class GameScene(Scene, ABC):
         elif self.lastCollidedItem is not None:
             self.lastCollidedItem.onPlayerCollision(False) # lighten the item
             self.itemPreview = None # hide the item preview
-            
         self.lastCollidedItem = collidedItem
         
     # create new transparent box to switch scene when atra collides with it
