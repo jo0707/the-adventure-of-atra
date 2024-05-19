@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List
 import pygame
 
+from src.components.itemPreview import ItemPreview
 from src.components.interactableItem import InteractableItem
 from src.components.textbox import Textbox
 from src.utils.eventHelper import EventHelper
@@ -23,6 +24,7 @@ class Scene(ABC):
         self.textboxes: List[Textbox] = []
         # contains all the transparent rects for next scene
         self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
+        self.itemPreview: ItemPreview | None = None
         self.lastCollidedItem: InteractableItem | None = None
         
     @abstractmethod
@@ -46,9 +48,9 @@ class Scene(ABC):
     # update method is used to update the sprites condition and textboxes
     # this method only updates the sprites and textboxes logic
     # ex: moving the sprite, changing the text, etc
-    @abstractmethod
     def update(self):
-        pass
+        if self.itemPreview:
+            self.itemPreview.update()
     
     # create a popup that receive text and image path to display
     # darken the background
@@ -65,10 +67,10 @@ class Scene(ABC):
         EventHelper.postEvent(nextSceneEvent)
         
     def showItemPreview(self, item: InteractableItem):
-        self.textboxes.append(Textbox())
+        self.itemPreview = ItemPreview(320, 480, item)
         
-        
-    def changeMusic(self, musicName: str):
+    def changeMusic(self, musicName: str, volume: float = 0.3):
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
-        pygame.mixer.music.set_volume(0.3)
+        # pygame.mixer.music.set_volume(volume)
+        pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(-1)

@@ -8,4 +8,4 @@ class KainUlosSumateraUtara(InteractableItem):
         super().__init__("assets/images/components/sumateraUtara/kainUlos.png", x, y, scale=1,
                          title= 'Kain Tenun Ulos',
                          description= 'Kain tenun Ulos adalah kain tenun khas suku Batak. ulos mempunyai fungsi dan arti yang sangat penting. Kain Tenun Ulos digunakan di berbagai upacara adat seperti kelahiran, pernikahan, kematian dan ritual lainnya.',
-                         realImageName='assets/images/real/sumateraUtara/kainUlos.png')
+                         realImageName='sumateraUtara/kainUlos.png')
