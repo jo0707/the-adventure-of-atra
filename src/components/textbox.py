@@ -4,13 +4,14 @@ import pygame.freetype
 from src.utils.fontHelper import FontHelper
 
 class Textbox():
-    def __init__(self, text = "Text", x = 0, y = 0, size = 24, color = pygame.colordict.THECOLORS["white"], font: pygame.freetype.Font = None, bgColor = None, wrap: bool = False):
+    def __init__(self, text = "Text", x = 0, y = 0, size = 24, color = pygame.colordict.THECOLORS["black"], font: pygame.freetype.Font = None, bgColor = None, wrap: bool = False):
         self.font = font if font else FontHelper.fonts["reguler"]
         self.__text = text
         self.x = x
         self.y = y
         self.size = size
         self.color = color
+        self.bgColor = bgColor
         self.wrap = wrap
         
         [self.surf, self.rect] = self.font.render(self.__text, color, bgColor, size=size)
@@ -24,7 +25,7 @@ class Textbox():
         
     def setText(self, text):
         self.__text = text
-        [self.surf, self.rect] = self.font.render(self.__text, True, self.color)
+        [self.surf, self.rect] = self.font.render(self.__text, self.color, self.bgColor, size=self.size)
         self.rect.topleft = (self.x, self.y)
         
     def __renderWrappedText(self, surface):
