@@ -6,6 +6,17 @@ from src.components.gameEntity import GameEntity
 class TestGameEntity(unittest.TestCase):
     imagePath = "assets/images/components/pillar.png"
 
+    def testInitialization(self):
+        gameEntity = GameEntity(TestGameEntity.imagePath)
+        self.assertEqual(gameEntity.imagePath, TestGameEntity.imagePath)
+        self.assertEqual(gameEntity.image.get_rect().topleft, (0, 0))
+        
+    def testMethods(self):
+        self.assertTrue(hasattr(GameEntity, "update"))
+        self.assertTrue(hasattr(GameEntity, "scaleByHeight"))
+        self.assertTrue(hasattr(GameEntity, "scaleByWidth"))
+        self.assertTrue(hasattr(GameEntity, "copyRect"))
+    
     # created GameEntity object must have rect with desired width and height
     def testWidthHeightInitialization(self):
         width = random.randint(0, 1280)
@@ -25,3 +36,11 @@ class TestGameEntity(unittest.TestCase):
         height = random.randint(0, 720)
         gameEntity = GameEntity(TestGameEntity.imagePath, height=height)
         self.assertEqual(gameEntity.rect.height, height)
+        
+    def testCopyRect(self):
+        gameEntity = GameEntity(TestGameEntity.imagePath)
+        heightFactor = random.random()
+        bottomOffset = random.randint(0, 100)
+        rectCopy = gameEntity.copyRect(heightFactor, bottomOffset)
+        self.assertAlmostEqual(rectCopy.height, gameEntity.rect.height * heightFactor, delta=10)
+        self.assertEqual(rectCopy.bottom, gameEntity.rect.bottom - bottomOffset)

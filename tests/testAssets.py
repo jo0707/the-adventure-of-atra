@@ -1,9 +1,6 @@
 import os
 import unittest
 
-import pygame
-
-from src.components.movable import Movable
 
 class TestAssets(unittest.TestCase):
     provinces = ["lampung", "sumateraUtara", "sumateraBarat"]

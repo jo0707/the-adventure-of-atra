@@ -16,3 +16,6 @@ def minimal_setup_for_game():
 
     pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
     already_set_up = True
+    
+def getScreen():
+    return pygame.display.get_surface()
