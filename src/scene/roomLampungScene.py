@@ -38,7 +38,7 @@ class RoomLampungScene(GameScene):
         
         self.initializeWalls()
         self.initializeObstacle()
-        self.changeMusic("tabuhSanakLampung.mp3")
+        self.changeMusic("tabuhSanakLampung.mp3", 0.2)
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())

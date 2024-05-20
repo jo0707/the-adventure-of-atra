@@ -12,7 +12,7 @@ class Character(GameEntity, Movable):
         self.height = 136
         self.name = name
         GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', width=self.width, height=self.height)
-        Movable.__init__(self, 8, self.rect)
+        Movable.__init__(self, 3, self.rect)
         
         self.currentDirection = DIRECTIONS[0]
         self.currentFrame = 0

@@ -21,7 +21,7 @@ SceneManager will change the current scene based on the event
 class SceneManager:
     def __init__(self, screen: pygame.Surface):
         self.screen = screen
-        self.currentScene = OutdoorScene(screen, 0)
+        self.currentScene = MenuScene(screen, 0)
         self.lastSceneEvent = EventHelper.EVENT_SCENESTART
         
     def onEvent(self, event):
