@@ -1,5 +1,6 @@
 import pygame
 
+from src.components.clickable import Clickable
 from src.dialog.quizDialog import QuizDialog
 from src.components.staffQuiz import StaffQuiz
 from src.components.lampung.radenIntan2Lampung import RadenIntan2Lampung
@@ -72,6 +73,10 @@ class RoomLampungScene(GameScene):
     
     def onClick(self, position: tuple[int, int]):
         super().onClick(position)
+        if self.quizDialog:
+            for sprite in self.quizDialog:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
     
     def display(self):
         super().display()

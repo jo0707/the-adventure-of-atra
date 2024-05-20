@@ -23,7 +23,8 @@ quizLampung = [
         [
             "Karena ia tewas dalam pertempuran besar melawan Belanda",
             "Karena ia menyerah kepada Belanda",
-            "Karena ia menjadi tahanan perang setelah melawan Belanda"
+            "Karena ia menjadi tahanan perang setelah melawan Belanda",
+            "Karena ia menjadi pejabat Belanda setelah melawan Belanda"
         ],
         "Karena ia tewas dalam pertempuran besar melawan Belanda"
     ),
@@ -98,7 +99,8 @@ quizSumateraUtara = [
         [
             "Piso gaja Dompak",
             "Prasasti Lobu Tua",
-            "Prasasti Batugana"
+            "Prasasti Batugana",
+            "Prasasti Purbakala"
         ],
         "Piso gaja Dompak"
     ),
