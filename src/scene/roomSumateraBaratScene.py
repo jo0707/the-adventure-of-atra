@@ -1,5 +1,8 @@
 import pygame
 
+from src.components.clickable import Clickable
+from src.components.staffQuiz import StaffQuiz
+from src.dialog.quizDialog import QuizDialog
 from src.components.sumateraBarat.tuankuImamBonjol import TuankuImamBonjol
 from src.components.sumateraBarat.prasastiKuburajo import PrasastiKuburajo
 from src.components.sumateraBarat.kainSongket import KainSongket
@@ -10,6 +13,7 @@ from src.components.atra import Atra
 from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
+from src.data.quiz import quizSumateraBarat
 
 class RoomSumateraBaratScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
@@ -18,6 +22,8 @@ class RoomSumateraBaratScene(GameScene):
         
         self.atra = Atra()
         self.atra.placeBottom()
+        
+        self.quizDialog: QuizDialog | None = None
         
         self.portraitSumbar = TuankuImamBonjol(900, 30)
         self.prasastiKuburajo = PrasastiKuburajo(950, 200)
@@ -54,6 +60,11 @@ class RoomSumateraBaratScene(GameScene):
         ])
 
     def onKeyDown(self, keys):
+        if keys[pygame.K_e] and self.itemPreview and isinstance(self.itemPreview.interactableItem, StaffQuiz):
+            def closeQuiz():
+                self.quizDialog = None
+            self.quizDialog = QuizDialog(128, 72, lambda: closeQuiz(), quizSumateraBarat)
+            
         self.atra.onKeyDown(keys)
         super().onKeyDown(keys)
     
@@ -62,9 +73,17 @@ class RoomSumateraBaratScene(GameScene):
     
     def onClick(self, position: tuple[int, int]):
         super().onClick(position)
+        if self.quizDialog:
+            for sprite in self.quizDialog:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
     
     def display(self):
         super().display()
+        if self.quizDialog:
+            self.quizDialog.draw(self.screen)
     
     def update(self):
         super().update()
+        if self.quizDialog:
+            self.quizDialog.update()

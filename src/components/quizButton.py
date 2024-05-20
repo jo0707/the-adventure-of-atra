@@ -25,6 +25,9 @@ class QuizButton(GameEntity, Clickable):
             self.isHovered = not self.isHovered
             self.hoverChange()
             
+    def setAction(self, action):
+        self.action = action
+            
     def clearSurface(self):
         self.image = self.originalSurface.copy()
 

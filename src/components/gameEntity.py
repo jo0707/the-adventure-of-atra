@@ -8,7 +8,7 @@ class GameEntity(pygame.sprite.Sprite):
     # width: width of the sprite
     # height: height of the sprite
     # scale: size of the sprite
-    def __init__(self, imagePath: str = "/assets/images/components/pillar.png", x: int = 0, y: int = 0, width: int = 0, height: int = 0, scale: float = 0):
+    def __init__(self, imagePath: str = "/assets/images/components/transparent.png", x: int = 0, y: int = 0, width: int = 0, height: int = 0, scale: float = 0):
         super().__init__()
         self.imagePath = imagePath
         self.image = pygame.image.load(imagePath).convert_alpha()

@@ -8,4 +8,4 @@ class BajuBatakSumateraUtara(InteractableItem):
         super().__init__("assets/images/components/sumateraUtara/bajuBatak.png", x, y, scale=1,
                          title= 'Pakaian Adat Batak Toba',
                          description= 'Pakaian Adat Batak Toba terbuat dari kain ulos atau kain tenun tradisional, mulai dari bagian atas sampai bawah. Pakaian adat pria bagian atas disebut ampe-ampe dan bagian bawah disebut singkot. sementara untuk perempuan, bagian atas berupa hoba-hoba dan bagian bawah adalah haen. Pakaian adat ini digunakan untuk upacara adat, pernikahan dan pesta  syukuran.',
-                         realImageName='sumateraUtara/pakaianAdat.png')
+                         realImageName='sumateraUtara/bajuBatak.png')

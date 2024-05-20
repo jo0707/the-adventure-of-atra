@@ -1,5 +1,8 @@
 import pygame
 
+from src.components.clickable import Clickable
+from src.components.staffQuiz import StaffQuiz
+from src.dialog.quizDialog import QuizDialog
 from src.components.atra import Atra
 from src.components.sumateraUtara.bajuBatakSumateraUtara import BajuBatakSumateraUtara
 from src.components.sumateraUtara.kainUlosSumateraUtara import KainUlosSumateraUtara
@@ -10,6 +13,7 @@ from src.components.sumateraUtara.pisoGajaSumateraUtara import PisoGajaSumateraU
 from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
+from src.data.quiz import quizSumateraUtara
 
 class RoomSumateraUtaraScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
@@ -18,6 +22,8 @@ class RoomSumateraUtaraScene(GameScene):
         
         self.atra = Atra()
         self.atra.placeBottom()
+        
+        self.quizDialog: QuizDialog | None = None
         
         self.bajuBatakSumateraUtara = BajuBatakSumateraUtara(470,180)
         self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
@@ -54,6 +60,11 @@ class RoomSumateraUtaraScene(GameScene):
         ])
 
     def onKeyDown(self, keys):
+        if keys[pygame.K_e] and self.itemPreview and isinstance(self.itemPreview.interactableItem, StaffQuiz):
+            def closeQuiz():
+                self.quizDialog = None
+            self.quizDialog = QuizDialog(128, 72, lambda: closeQuiz(), quizSumateraUtara)
+            
         self.atra.onKeyDown(keys)
         super().onKeyDown(keys)
     
@@ -62,9 +73,17 @@ class RoomSumateraUtaraScene(GameScene):
     
     def onClick(self, position: tuple[int, int]):
         super().onClick(position)
+        if self.quizDialog:
+            for sprite in self.quizDialog:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
     
     def display(self):
         super().display()
+        if self.quizDialog:
+            self.quizDialog.draw(self.screen)
     
     def update(self):
         super().update()
+        if self.quizDialog:
+            self.quizDialog.update()
