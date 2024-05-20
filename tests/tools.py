@@ -4,10 +4,7 @@ import constants
 from src.utils.fontHelper import FontHelper
 from src.utils.soundHelper import SoundHelper
 
-NB_TESTS_FOR_PROPORTIONS = 1000
-
 already_set_up = False
-
 
 def minimal_setup_for_game():
     global already_set_up

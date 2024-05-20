@@ -31,7 +31,7 @@ class Scene(ABC):
 
     @abstractmethod
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
 
     @abstractmethod
     def display(self):

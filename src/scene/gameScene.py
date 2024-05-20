@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pygame
 
+from src.components.clickable import Clickable
 from src.components.itemDescription import ItemDetail
 from src.scene.scene import Scene
 from src.components.itemPreview import ItemPreview
@@ -33,13 +34,27 @@ class GameScene(Scene, ABC):
     
     def onKeyDown(self, keys):
         if keys[pygame.K_e] and self.itemPreview:
-            self.itemDetail = ItemDetail(128, 72, self.itemPreview.interactableItem)
+            def closeItemDetail():
+                print("from GameScene")
+                self.itemDetail = None
+            self.itemDetail = ItemDetail(128, 72, self.itemPreview.interactableItem, lambda: closeItemDetail())
             self.itemPreview = None
 
-    @abstractmethod
     def onClick(self, position: tuple[int, int]):
-        pass
-
+        if self.itemDetail:
+            for sprite in self.itemDetail:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
+                    
+        if self.itemPreview:
+            for sprite in self.itemPreview:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
+                    
+        for sprite in self.sprites:
+            if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                sprite.onClick()
+                
     # display method is used to draw the sprites and textboxes on the screen
     # this method only draws the sprites and textboxes
     def display(self):
@@ -55,6 +70,9 @@ class GameScene(Scene, ABC):
     # this method only updates the sprites and textboxes logic
     # ex: moving the sprite, changing the text, etc
     def update(self):
+        if self.itemDetail:
+            self.itemDetail.update()
+        
         for sprite in self.sprites:
             sprite.update()
             

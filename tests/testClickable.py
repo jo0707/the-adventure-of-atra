@@ -34,8 +34,3 @@ class TestClickable(unittest.TestCase):
             class InvalidClickable(Clickable):
                 pass
             InvalidClickable(self.position, self.size)
-
-if __name__ == '__main__':
-    pygame.init()  # Initialize all imported pygame modules
-    unittest.main()
-    pygame.quit()  # Uninitialize all pygame modules

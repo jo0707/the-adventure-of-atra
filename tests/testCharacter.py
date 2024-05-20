@@ -51,6 +51,3 @@ class TestCharacter(unittest.TestCase):
         character.currentFrame = 3
         character.nextFrame()
         self.assertEqual(character.currentFrame, 0)  # Back to the first frame
-
-if __name__ == '__main__':
-    unittest.main()

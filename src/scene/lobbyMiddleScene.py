@@ -66,7 +66,7 @@ class LobbyMiddleScene(GameScene):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
         super().display()

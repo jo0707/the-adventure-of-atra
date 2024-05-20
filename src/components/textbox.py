@@ -28,6 +28,7 @@ class Textbox():
         self.rect.topleft = (self.x, self.y)
         
     def __renderWrappedText(self, surface):
+        self.font.size = self.size
         words = self.__text.split(' ')
         w, h = surface.get_size()
         line_spacing = self.font.get_sized_height() + 2

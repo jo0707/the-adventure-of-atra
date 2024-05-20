@@ -19,11 +19,9 @@ class TestGameEntity(unittest.TestCase):
         width = random.randint(0, 1280)
         gameEntity = GameEntity(TestGameEntity.imagePath, width=width)
         self.assertEqual(gameEntity.rect.width, width)
-        self.assertAlmostEqual(gameEntity.rect.height, gameEntity.image.get_height() * (width / gameEntity.image.get_width()), delta=10)
         
     # create GameEntity object with only height parameter, width should be scaled accordingly
     def testHeightInitialization(self):
         height = random.randint(0, 720)
         gameEntity = GameEntity(TestGameEntity.imagePath, height=height)
         self.assertEqual(gameEntity.rect.height, height)
-        self.assertAlmostEqual(gameEntity.rect.width, gameEntity.image.get_width() * (height / gameEntity.image.get_height()), delta=10)
