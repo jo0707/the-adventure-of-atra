@@ -24,7 +24,7 @@ class LobbyMiddleScene(GameScene):
         self.logoSumateraUtara = LogoSumateraUtara(950, 30)
         self.wallMap = WallMap(179, 40)
         self.wallText = WallText(829, 71)
-        self.visitor1 = Visitor1(900, 600)
+        self.visitor1 = Visitor1(250, 520, "up")
         self.visitor3 = Visitor3(250, 85)
         self.visitor2 = Visitor2(900, 200, "up")
         self.staff = Staff(900, 90)

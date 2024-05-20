@@ -1,6 +1,8 @@
 import pygame
 
 from src.components.atra import Atra
+from src.components.visitor1 import Visitor1
+from src.components.visitor3 import Visitor3
 from src.components.badakStatue import BadakStatue
 from src.components.logoSumateraBarat import LogoSumateraBarat
 from src.components.kursi import Kursi
@@ -15,11 +17,13 @@ class LobbyRightScene(GameScene):
         
         self.atra = Atra()
         self.atra.placeLeft()
+        #self.visitor1 = Visitor1(225,220)
+        self.visitor3 = Visitor3(225,100)
         self.badakStatue = BadakStatue(ScreenHelper.getWindowX() / 2 ,ScreenHelper.getWindowY() / 2)
         self.logoSumateraBarat = LogoSumateraBarat(950, 30)
         self.kursi1 = Kursi(72, 556)
         self.kursi2 = Kursi(924, 556)
-        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.kursi1, self.kursi2, self.atra)
+        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.kursi1, self.kursi2, self.atra, self.visitor3)
         self.itemSprites.add(self.badakStatue, self.logoSumateraBarat)
         self.initializeWalls()
         self.setAtraPosition()

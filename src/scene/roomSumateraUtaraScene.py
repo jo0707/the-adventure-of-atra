@@ -25,6 +25,7 @@ class RoomSumateraUtaraScene(GameScene):
         
         self.quizDialog: QuizDialog | None = None
         
+        self.staffQuiz = StaffQuiz(70, 100)
         self.bajuBatakSumateraUtara = BajuBatakSumateraUtara(470,180)
         self.kainUlosSumateraUtara = KainUlosSumateraUtara(935,40)
         self.sisingamangaradjaSumateraUtara = SisingamangaradjaSumateraUtara(245,30)
@@ -32,8 +33,8 @@ class RoomSumateraUtaraScene(GameScene):
         self.prasastiBatuganaSumateraUtara = PrasastiBatuganaSumateraUtara(1000,200)
         self.pisoGajaSumateraUtara = PisoGajaSumateraUtara(100,450)
         
-        self.sprites.add(self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara, self.atra, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
-        self.itemSprites.add(self.kainUlosSumateraUtara, self.sisingamangaradjaSumateraUtara, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara)
+        self.sprites.add(self.sisingamangaradjaSumateraUtara, self.kainUlosSumateraUtara, self.atra, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara, self.staffQuiz)
+        self.itemSprites.add(self.kainUlosSumateraUtara, self.sisingamangaradjaSumateraUtara, self.bajuBatakSumateraUtara, self.prasastiBatuganaSumateraUtara, self.prasastiLobuTuaSumateraUtara, self.pisoGajaSumateraUtara, self.staffQuiz)
         
         self.initializeWalls()
         self.initializeObstacle()
