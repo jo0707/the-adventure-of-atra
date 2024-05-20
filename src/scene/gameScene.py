@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pygame
 
+from src.components.staffQuiz import StaffQuiz
 from src.components.clickable import Clickable
 from src.components.itemDescription import ItemDetail
 from src.scene.scene import Scene
@@ -33,12 +34,10 @@ class GameScene(Scene, ABC):
         pass
     
     def onKeyDown(self, keys):
-        if keys[pygame.K_e] and self.itemPreview:
+        if keys[pygame.K_e] and self.itemPreview and not isinstance(self.itemPreview.interactableItem, StaffQuiz):
             def closeItemDetail():
-                print("from GameScene")
                 self.itemDetail = None
             self.itemDetail = ItemDetail(128, 72, self.itemPreview.interactableItem, lambda: closeItemDetail())
-            self.itemPreview = None
 
     def onClick(self, position: tuple[int, int]):
         if self.itemDetail:

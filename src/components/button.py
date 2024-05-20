@@ -8,7 +8,7 @@ from src.utils.fontHelper import FontHelper
 
 class Button(GameEntity, Clickable):
     def __init__(self, x: int, y: int, width: int, height: int, text: str, font = None, textColor = pygame.colordict.THECOLORS["white"], textHoverColor = pygame.colordict.THECOLORS["slategray"], action=lambda: None) -> None:
-        GameEntity.__init__(self, "assets/images/components/button3.png", x, y, width, height)
+        GameEntity.__init__(self, "assets/images/components/itemPreviewBackground.png", x, y, width, height)
         self.__text = text
         self.textColor = textColor
         self.textHoverColor = textHoverColor
