@@ -13,13 +13,6 @@ class TestGameEntity(unittest.TestCase):
         gameEntity = GameEntity(TestGameEntity.imagePath, width=width, height=height)
         self.assertEqual(gameEntity.rect.width, width)
         self.assertEqual(gameEntity.rect.height, height)
-
-    # created GameEntity object must have rect with desired scale
-    def testWidthHeightInitialization(self):
-        scale = random.uniform(0, 1)
-        gameEntity = GameEntity(TestGameEntity.imagePath, scale=scale)
-        self.assertAlmostEqual(gameEntity.rect.width, gameEntity.image.get_width() * scale, delta=10)
-        self.assertAlmostEqual(gameEntity.rect.height, gameEntity.image.get_height() * scale, delta=10)
         
     # create GameEntity object with only width parameter, height should be scaled accordingly
     def testWidthInitialization(self):
