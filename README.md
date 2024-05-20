@@ -4,7 +4,7 @@
 </p>
 
 ## Project Description
-"The Adventure of Atra" is an adventure game with the theme of museum exploration. In this game, players will play the role of Atra, a young adventurer who explores the museum to learn and know more about Sumatran culture. Players will complete various puzzles and missions to uncover historical and cultural stories hidden within the museum. This game offers a relaxing and educational gaming experience, which is suitable for all groups, especially those who want to expand their knowledge of Indonesian culture.
+"The Adventure of Atra" - is an adventure game with the theme of museum exploration. In this game, players will play the role of Atra, a young adventurer who explores the museum to learn and know more about Sumatran culture. Players will complete various puzzles and missions to uncover historical and cultural stories hidden within the museum. This game offers a relaxing and educational gaming experience, which is suitable for all groups, especially those who want to expand their knowledge of Indonesian culture.
 
 ## Library, Frameworks & Tools Used
 
