@@ -37,6 +37,3 @@ class TestAtra(unittest.TestCase):
 
     def tearDown(self):
         pygame.quit()
-
-if __name__ == "__main__":
-    unittest.main()
