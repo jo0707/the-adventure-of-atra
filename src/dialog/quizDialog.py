@@ -19,6 +19,7 @@ class QuizDialog(pygame.sprite.Group):
         self.correctAnswer = 0
         self.quizzez = quizzez
         self.onClose = onClose
+        self.isComplete = False
         
         # need to create and store surface and its rect to be able to wrap the text inside surface
         self.textboxes: List[List[pygame.surface.Surface, pygame.rect.Rect, Textbox]] = []
@@ -59,8 +60,10 @@ class QuizDialog(pygame.sprite.Group):
                 self.quizButtons[i].setText(option)
                 self.quizButtons[i].setAction(lambda: self.nextQuestion(option))
         else:
-            self.onClose()
-            return
+            self.onComplete()
+        
+    def onComplete(self):
+        pass
         
     def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['black']):
         surface = pygame.surface.Surface(rectSize, pygame.SRCALPHA, 32)

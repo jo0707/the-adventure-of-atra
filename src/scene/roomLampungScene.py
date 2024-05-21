@@ -87,3 +87,5 @@ class RoomLampungScene(GameScene):
         super().update()
         if self.quizDialog:
             self.quizDialog.update()
+            if self.quizDialog.isComplete:
+                self.quizDialog = None

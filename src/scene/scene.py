@@ -20,6 +20,7 @@ class Scene(ABC):
         self.sprites = pygame.sprite.Group()
         # contains all textboxes in scene
         self.textboxes: List[Textbox] = []
+        self.lastMusicName = ""
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
@@ -48,6 +49,11 @@ class Scene(ABC):
         EventHelper.postEvent(nextSceneEvent)
         
     def changeMusic(self, musicName: str, volume: float = 0.5):
+        # pygame.mixer.music.fadeout(1000)
+        if self.lastMusicName != musicName:
+            self.lastMusicName = musicName
+            pygame.mixer.music.stop()
+            
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
         pygame.mixer.music.set_volume(volume)
         pygame.mixer.music.play(-1)
