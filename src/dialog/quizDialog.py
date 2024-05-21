@@ -60,12 +60,14 @@ class QuizDialog(pygame.sprite.Group):
                 self.quizButtons[i].setText(option)
                 self.quizButtons[i].setAction(lambda: self.nextQuestion(option))
         else:
-            self.onComplete()
+            self.showScore()
         
-    def onComplete(self):
-        pass
+    def showScore(self):
+        self.textboxes.clear()
+        self.insertText("Kuis selesai!", 128, 72, 26, (self.width - 2 * self.pad, 100))
+        self.insertText(f"Jawaban benar kamu ada {self.correctAnswer} dari {len(self.quizzez)}", 128, 100, 18, (self.width - 2 * self.pad, 100))
         
-    def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['black']):
+    def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['green']):
         surface = pygame.surface.Surface(rectSize, pygame.SRCALPHA, 32)
         textbox = Textbox(text, size=textSize, color=color, wrap=True)
         self.textboxes.append([surface, surface.get_rect(topleft=(x, y)), textbox])
