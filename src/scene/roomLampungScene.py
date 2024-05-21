@@ -1,5 +1,6 @@
 import pygame
 
+from src.player import Player
 from src.components.clickable import Clickable
 from src.dialog.quizDialog import QuizDialog
 from src.components.staffQuiz import StaffQuiz
@@ -88,4 +89,4 @@ class RoomLampungScene(GameScene):
         if self.quizDialog:
             self.quizDialog.update()
             if self.quizDialog.isComplete:
-                self.quizDialog = None
+                Player.getPlayer().lampungCorrectAnswers = self.quizDialog.correctAnswer

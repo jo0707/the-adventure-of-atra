@@ -1,5 +1,6 @@
 import pygame
 
+from src.components.security import Security
 from src.components.frontLeftTable import FrontLeftTable
 from src.components.frontRightTable import FrontRightTable
 from src.components.atra import Atra
@@ -21,11 +22,13 @@ class LobbyFrontScene(GameScene):
         self.staff2 = Staff(972, 550, "left")
 
         self.atra = Atra()
+        self.security1 = Security(285, 100)
+        self.security2 = Security(800, 100)
         self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
         self.frontRightTable = FrontRightTable(ScreenHelper.getWindowX(), ScreenHelper.getWindowY())
         self.atra.placeBottom()
         
-        self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2)
+        self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2, self.security1, self.security2)
         self.initializeWalls()
         self.setAtraPosition()
     

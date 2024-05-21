@@ -1,5 +1,6 @@
 import pygame
 
+from src.player import Player
 from src.components.clickable import Clickable
 from src.components.staffQuiz import StaffQuiz
 from src.dialog.quizDialog import QuizDialog
@@ -88,3 +89,5 @@ class RoomSumateraBaratScene(GameScene):
         super().update()
         if self.quizDialog:
             self.quizDialog.update()
+            if self.quizDialog.isComplete:
+                Player.getPlayer().sumateraBaratCorrectAnswers = self.quizDialog.correctAnswer
