@@ -55,6 +55,11 @@ class GameScene(Scene, ABC):
                 if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
                     sprite.onClick()
                     
+        if self.endDialog:
+            for sprite in self.endDialog:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
+                    
         for sprite in self.sprites:
             if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
                 sprite.onClick()

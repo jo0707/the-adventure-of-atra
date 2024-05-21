@@ -7,7 +7,7 @@ from src.components.movable import Movable
 DIRECTIONS = ("down", "left", "up", "right")
 
 class Character(GameEntity, Movable):
-    def __init__(self, name: str, speed = 16):
+    def __init__(self, name: str, speed = 4):
         self.width = 68
         self.height = 136
         self.speed = speed

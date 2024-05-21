@@ -8,7 +8,7 @@ from src.utils.fontHelper import FontHelper
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class EndEcene(Scene):
+class EndScene(Scene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
         super().__init__(screen)
         self.lastSceneEvent = lastSceneEvent

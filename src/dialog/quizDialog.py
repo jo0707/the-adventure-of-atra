@@ -75,6 +75,7 @@ class QuizDialog(pygame.sprite.Group):
         correctAnswerTextbox.rect.center = (self.width // 2, self.height // 2 + 48)
         quizDoneTextbox.display(self.background.image)
         correctAnswerTextbox.display(self.background.image)
+        self.isComplete = True
         
         
     def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['black']):

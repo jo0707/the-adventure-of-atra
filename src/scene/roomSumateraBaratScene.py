@@ -90,4 +90,4 @@ class RoomSumateraBaratScene(GameScene):
         if self.quizDialog:
             self.quizDialog.update()
             if self.quizDialog.isComplete:
-                Player.getPlayer().sumateraBaratCorrectAnswers = self.quizDialog.correctAnswer
+                self.player.sumateraBaratCorrectAnswers = self.quizDialog.correctAnswer

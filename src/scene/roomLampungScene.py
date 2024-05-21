@@ -89,4 +89,4 @@ class RoomLampungScene(GameScene):
         if self.quizDialog:
             self.quizDialog.update()
             if self.quizDialog.isComplete:
-                Player.getPlayer().lampungCorrectAnswers = self.quizDialog.correctAnswer
+                self.player.lampungCorrectAnswers = self.quizDialog.correctAnswer
