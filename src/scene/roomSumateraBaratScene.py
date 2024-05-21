@@ -25,6 +25,7 @@ class RoomSumateraBaratScene(GameScene):
         
         self.quizDialog: QuizDialog | None = None
         
+        self.staffQuiz = StaffQuiz(70, 100)
         self.portraitSumbar = TuankuImamBonjol(900, 30)
         self.prasastiKuburajo = PrasastiKuburajo(950, 200)
         self.kainSongket = KainSongket(210, 40)
@@ -32,8 +33,8 @@ class RoomSumateraBaratScene(GameScene):
         self.rumahGadang = RumahGadang(900, 418)
         self.jamGadang = JamGadang(200, 335)
         
-        self.sprites.add(self.kainSongket, self.portraitSumbar, self.atra, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
-        self.itemSprites.add(self.kainSongket, self.portraitSumbar, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo)
+        self.sprites.add(self.kainSongket, self.portraitSumbar, self.atra, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo, self.staffQuiz)
+        self.itemSprites.add(self.kainSongket, self.portraitSumbar, self.rumahGadang, self.jamGadang, self.karih, self.prasastiKuburajo, self.staffQuiz)
         
         self.initializeWalls()
         self.initializeObstacle()

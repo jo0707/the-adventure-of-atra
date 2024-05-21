@@ -1,6 +1,10 @@
 import pygame
 
 from src.components.atra import Atra
+from src.components.visitor4 import Visitor4
+from src.components.visitor3 import Visitor3
+from src.components.visitor2 import Visitor2
+from src.components.visitor1 import Visitor1
 from src.components.gajahStatue import GajahStatue
 from src.components.logoLampung import LogoLampung
 from src.components.kursi import Kursi
@@ -15,11 +19,15 @@ class LobbyLeftScene(GameScene):
         
         self.atra = Atra()
         self.atra.placeRight()
+        self.visitor3 = Visitor3(200, 70)
+        self.visitor2 = Visitor2(100, 110)
+        self.visitor1 = Visitor1(640, 500, "up")
+        self.visitor4 = Visitor4(1100, 130)
         self.gajahStatue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
         self.logoLampung = LogoLampung(950, 30)
         self.kursi1 = Kursi(72, 556)
         self.kursi2 = Kursi(924, 556)
-        self.sprites.add(self.gajahStatue, self.logoLampung, self.kursi1, self.kursi2, self.atra)
+        self.sprites.add(self.gajahStatue, self.logoLampung, self.kursi1, self.kursi2, self.atra, self.visitor3, self.visitor2, self.visitor1, self.visitor4)
         
         self.itemSprites.add(self.gajahStatue, self.logoLampung)
         self.initializeWalls()
