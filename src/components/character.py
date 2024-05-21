@@ -7,12 +7,13 @@ from src.components.movable import Movable
 DIRECTIONS = ("down", "left", "up", "right")
 
 class Character(GameEntity, Movable):
-    def __init__(self, name: str):
+    def __init__(self, name: str, speed = 16):
         self.width = 68
         self.height = 136
+        self.speed = speed
         self.name = name
         GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', width=self.width, height=self.height)
-        Movable.__init__(self, 3, self.rect)
+        Movable.__init__(self, self.speed, self.rect)
         
         self.currentDirection = DIRECTIONS[0]
         self.currentFrame = 0

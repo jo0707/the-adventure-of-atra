@@ -1,6 +1,6 @@
 import pygame
 
-from player import Player
+from src.player import Player
 from src.components.clickable import Clickable
 from src.components.staffQuiz import StaffQuiz
 from src.dialog.quizDialog import QuizDialog

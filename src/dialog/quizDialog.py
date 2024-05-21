@@ -64,10 +64,19 @@ class QuizDialog(pygame.sprite.Group):
         
     def showScore(self):
         self.textboxes.clear()
-        self.insertText("Kuis selesai!", 128, 72, 26, (self.width - 2 * self.pad, 100))
-        self.insertText(f"Jawaban benar kamu ada {self.correctAnswer} dari {len(self.quizzez)}", 128, 100, 18, (self.width - 2 * self.pad, 100))
+        for button in self.quizButtons:
+            button.kill()
+        self.quizButtons.clear()
         
-    def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['green']):
+        quizDoneTextbox = Textbox("Kuis selesai!", 0, 0, 32, (0, 0, 0))
+        correctAnswerTextbox = Textbox(f"Jawaban benar kamu ada {self.correctAnswer} dari {len(self.quizzez)}", 0, 0, 24, (45, 134, 45))
+        quizDoneTextbox.rect.center = (self.width // 2, self.height // 2)
+        correctAnswerTextbox.rect.center = (self.width // 2, self.height // 2 + 48)
+        quizDoneTextbox.display(self.background.image)
+        correctAnswerTextbox.display(self.background.image)
+        
+        
+    def insertText(self, text: str, x: int, y: int, textSize: int, rectSize: Tuple[int, int], color: Tuple[int, int, int] = pygame.colordict.THECOLORS['black']):
         surface = pygame.surface.Surface(rectSize, pygame.SRCALPHA, 32)
         textbox = Textbox(text, size=textSize, color=color, wrap=True)
         self.textboxes.append([surface, surface.get_rect(topleft=(x, y)), textbox])
@@ -75,7 +84,6 @@ class QuizDialog(pygame.sprite.Group):
     def draw(self, surface: pygame.Surface, bgsurf: pygame.Surface | None = None, special_flags: int = 0) -> List[pygame.Rect]:
         surface.blit(self.grayBackground, (0, 0))
         super().draw(surface, bgsurf, special_flags)
-        
         for (s, r, textbox) in self.textboxes:
             # clear the surface first
             s.fill((0, 0, 0, 0))
