@@ -5,6 +5,7 @@ from src.components.visitor1 import Visitor1
 from src.components.staff import Staff
 from src.components.visitor2 import Visitor2
 from src.components.visitor3 import Visitor3
+from src.components.visitor5 import Visitor5
 from src.components.wallMap import WallMap
 from src.components.wallText import WallText
 from src.components.sumateraStatue import SumaterStatue
@@ -25,11 +26,12 @@ class LobbyMiddleScene(GameScene):
         self.wallMap = WallMap(179, 40)
         self.wallText = WallText(829, 71)
         self.visitor1 = Visitor1(250, 520, "up")
-        self.visitor3 = Visitor3(250, 85)
+        self.visitor3 = Visitor3(100, 85)
         self.visitor2 = Visitor2(900, 200, "up")
+        self.visitor5 = Visitor5(1100, 520)
         self.staff = Staff(900, 90)
         
-        self.sprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
+        self.sprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.visitor5, self.atra)
         self.itemSprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara)
         
         self.initializeWalls()
