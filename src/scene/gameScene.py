@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import pygame
 
+from src.dialog.endDialog import EndDialog
+from src.player import Player
 from src.components.staffQuiz import StaffQuiz
 from src.components.clickable import Clickable
 from src.components.itemDescription import ItemDetail
@@ -21,6 +23,8 @@ class GameScene(Scene, ABC):
         self.background = pygame.image.load(backgroundPath).convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
+        self.endDialog: EndDialog | None = None
+        
         # contains all interacable sprites in scene (InteractableItem)
         self.itemSprites = pygame.sprite.Group()
         # contains all the transparent rects for next scene
@@ -28,6 +32,7 @@ class GameScene(Scene, ABC):
         self.itemPreview: ItemPreview | None = None
         self.itemDetail: ItemDetail | None = None
         self.lastCollidedItem: InteractableItem | None = None
+        self.player = Player.getPlayer()
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
@@ -63,12 +68,18 @@ class GameScene(Scene, ABC):
             self.itemPreview.draw(self.screen)
         if self.itemDetail:
             self.itemDetail.draw(self.screen)
+        if self.endDialog:
+            self.endDialog.draw(self.screen)
             
 
     # update method is used to update the sprites condition and textboxes
     # this method only updates the sprites and textboxes logic
     # ex: moving the sprite, changing the text, etc
     def update(self):
+        print(self.player.lampungCorrectAnswers, self.player.sumateraBaratCorrectAnswers, self.player.sumateraUtaraCorrectAnswers)
+        if self.player.lampungCorrectAnswers is not None and self.player.sumateraBaratCorrectAnswers is not None and self.player.sumateraUtaraCorrectAnswers is not None:        
+            self.endDialog = EndDialog(128, 72, lambda: self.switchSceneEvent(EventHelper.EVENT_SCENEEND))
+        
         if self.itemDetail:
             self.itemDetail.update()
         
@@ -90,7 +101,7 @@ class GameScene(Scene, ABC):
             self.lastCollidedItem.onPlayerCollision(False) # lighten the item
             self.itemPreview = None # hide the item preview
         self.lastCollidedItem = collidedItem
-        
+
     # create new transparent box to switch scene when atra collides with it
     # and when atra collides with it, it will post the desired event from parameter
     def addLevelRect(self, event: int, x: int, y: int, width: int, height: int):
