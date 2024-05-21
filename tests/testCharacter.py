@@ -5,7 +5,7 @@ from src.components.movable import Movable
 from src.components.character import Character
 
 
-class TestAtra(unittest.TestCase):
+class TestCharacter(unittest.TestCase):
     def setUp(self):
         self.name = "atra"
         self.character = Character(self.name)
