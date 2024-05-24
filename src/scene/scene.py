@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 from typing import List
 import pygame
 
+from src.components.itemPreview import ItemPreview
+from src.components.interactableItem import InteractableItem
 from src.components.textbox import Textbox
 from src.utils.eventHelper import EventHelper
 
@@ -13,10 +15,12 @@ Scene class will have all the same methods that will be implemented by the child
 
 class Scene(ABC):
     def __init__(self, screen: pygame.Surface):
-        self.sprites = pygame.sprite.Group()
-        self.textboxes: List[Textbox] = []
         self.screen = screen
-        self.nextSceneRects: dict[int, pygame.rect.Rect] = {}
+        # contains all sprites in scene
+        self.sprites = pygame.sprite.Group()
+        # contains all textboxes in scene
+        self.textboxes: List[Textbox] = []
+        self.lastMusicName = ""
         
     @abstractmethod
     def onEvent(self, event: pygame.event.Event):
@@ -28,10 +32,8 @@ class Scene(ABC):
 
     @abstractmethod
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
 
-    # display method is used to draw the sprites and textboxes on the screen
-    # this method only draws the sprites and textboxes
     @abstractmethod
     def display(self):
         pass
@@ -42,22 +44,16 @@ class Scene(ABC):
     @abstractmethod
     def update(self):
         pass
-    
-    # create a popup that receive text and image path to display
-    # darken the background
-    def showPopup(self, text: str, imagePath: str):
-        self.textboxes.append(Textbox(text, imagePath))
-        image = pygame.image.load(imagePath).convert_alpha()
-        
-    # create new transparent box to switch scene when atra collides with it
-    # and when atra collides with it, it will post the desired event from parameter
-    def addLevelRect(self, event: int, x: int, y: int, width: int, height: int):
-        self.nextSceneRects[event] = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(x, y, width, height))
 
     def switchSceneEvent(self, nextSceneEvent: int):
         EventHelper.postEvent(nextSceneEvent)
         
-    def changeMusic(self, musicName: str):
+    def changeMusic(self, musicName: str, volume: float = 0.5):
+        # pygame.mixer.music.fadeout(1000)
+        if self.lastMusicName != musicName:
+            self.lastMusicName = musicName
+            pygame.mixer.music.stop()
+            
         pygame.mixer.music.load(f"assets/sounds/{musicName}")
-        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.set_volume(volume)
         pygame.mixer.music.play(-1)

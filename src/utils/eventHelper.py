@@ -23,3 +23,4 @@ class EventHelper:
     EVENT_SCENEROOMLAMPUNG = newEvent()
     EVENT_SCENEROOMSUMATERAUTARA = newEvent()
     EVENT_SCENEROOMSUMATERABARAT = newEvent()
+    EVENT_SCENEEND = newEvent()

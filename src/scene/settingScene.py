@@ -16,7 +16,7 @@ class SettingsScene(Scene):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
         self.screen.blit(self.background, (0, 0))

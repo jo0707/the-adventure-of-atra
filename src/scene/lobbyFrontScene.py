@@ -1,21 +1,20 @@
 import pygame
 
+from src.components.security import Security
 from src.components.frontLeftTable import FrontLeftTable
 from src.components.frontRightTable import FrontRightTable
 from src.components.atra import Atra
 from src.components.wallText import WallText
 from src.components.staff import Staff
-from src.scene.scene import Scene
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyFrontScene(Scene):
+class LobbyFrontScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyFront.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyFront.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
-
+        
         self.walltext1= WallText(330, 70)
         self.walltext2= WallText(845, 70)
 
@@ -23,10 +22,13 @@ class LobbyFrontScene(Scene):
         self.staff2 = Staff(972, 550, "left")
 
         self.atra = Atra()
+        self.security1 = Security(285, 100)
+        self.security2 = Security(800, 100)
         self.frontLeftTable = FrontLeftTable(0, ScreenHelper.getWindowY())
         self.frontRightTable = FrontRightTable(ScreenHelper.getWindowX(), ScreenHelper.getWindowY())
         self.atra.placeBottom()
-        self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2)
+        
+        self.sprites.add(self.walltext1, self.walltext2, self.atra, self.frontLeftTable, self.frontRightTable, self.staff1, self.staff2, self.security1, self.security2)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -48,20 +50,16 @@ class LobbyFrontScene(Scene):
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()

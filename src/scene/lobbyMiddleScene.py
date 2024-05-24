@@ -1,35 +1,39 @@
 import pygame
 
+from src.scene.gameScene import GameScene
 from src.components.visitor1 import Visitor1
 from src.components.staff import Staff
 from src.components.visitor2 import Visitor2
 from src.components.visitor3 import Visitor3
+from src.components.visitor5 import Visitor5
 from src.components.wallMap import WallMap
 from src.components.wallText import WallText
 from src.components.sumateraStatue import SumaterStatue
+from src.components.logoSumateraUtara import LogoSumateraUtara
 from src.components.atra import Atra
-from src.scene.scene import Scene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyMiddleScene(Scene):
+class LobbyMiddleScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyMiddle.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyMiddle.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
-        print()
         
         self.atra = Atra()
         self.atra.placeBottom()
-        self.sumateraStatue = SumaterStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.sumateraStatue = SumaterStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2, )
+        self.logoSumateraUtara = LogoSumateraUtara(950, 30)
         self.wallMap = WallMap(179, 40)
         self.wallText = WallText(829, 71)
-        self.visitor1 = Visitor1(900, 600)
-        self.visitor3 = Visitor3(250, 85)
-        self.visitor2 = Visitor2(900, 200)
+        self.visitor1 = Visitor1(250, 520, "up")
+        self.visitor3 = Visitor3(100, 85)
+        self.visitor2 = Visitor2(900, 200, "up")
+        self.visitor5 = Visitor5(1100, 520)
         self.staff = Staff(900, 90)
-        self.sprites.add(self.sumateraStatue, self.wallMap, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.atra)
+        
+        self.sprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara, self.wallText, self.staff, self.visitor2, self.visitor3, self.visitor1, self.visitor5, self.atra)
+        self.itemSprites.add(self.sumateraStatue, self.wallMap, self.logoSumateraUtara)
+        
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -58,20 +62,16 @@ class LobbyMiddleScene(Scene):
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()

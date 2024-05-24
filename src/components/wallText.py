@@ -1,5 +1,3 @@
-import pygame
-import random
 
 from src.components.gameEntity import GameEntity
 

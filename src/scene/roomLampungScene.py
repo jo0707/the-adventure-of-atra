@@ -1,5 +1,9 @@
 import pygame
 
+from src.player import Player
+from src.components.clickable import Clickable
+from src.dialog.quizDialog import QuizDialog
+from src.components.staffQuiz import StaffQuiz
 from src.components.lampung.radenIntan2Lampung import RadenIntan2Lampung
 from src.components.lampung.kerisLampung import KerisLampung
 from src.components.lampung.prasastiBungkukLampung import PrasastiBungkukLampung
@@ -7,30 +11,35 @@ from src.components.lampung.prasastiDadakLampung import PrasastiDadakLampung
 from src.components.lampung.sigerLampung import SigerLampung
 from src.components.lampung.tapisLampung import TapisLampung
 from src.components.atra import Atra
-from src.scene.scene import Scene
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
+from src.data.quiz import quizLampung
 
-class RoomLampungScene(Scene):
+class RoomLampungScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/room.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/room.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
+        
+        self.quizDialog: QuizDialog | None = None
         
         self.atra = Atra()
         self.atra.placeBottom()
         self.tapisLampung = TapisLampung(125, 40)
         self.radenintan2 = RadenIntan2Lampung(935, 30)
-        self.prasastiDadakLampung = PrasastiDadakLampung(130, 256)
+        self.prasastiDadakLampung = PrasastiDadakLampung(130, 198)
         self.prasastiBungkukLampung = PrasastiBungkukLampung(130, 425)
         self.sigerLampung = SigerLampung(505, 210)
         self.kerisLampung = KerisLampung(1067, 198)
         self.kerisLampung2 = KerisLampung(1067, 425)
-        self.sprites.add(self.tapisLampung,  self.radenintan2, self.atra, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung)
+        self.staffQuiz = StaffQuiz(400, 200)
+        
+        self.sprites.add(self.tapisLampung, self.radenintan2, self.atra, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung, self.staffQuiz)
+        self.itemSprites.add(self.tapisLampung, self.radenintan2, self.prasastiDadakLampung, self.prasastiBungkukLampung, self.kerisLampung, self.kerisLampung2, self.sigerLampung, self.staffQuiz)
+        
         self.initializeWalls()
         self.initializeObstacle()
-        self.changeMusic("tabuhSanakLampung.mp3")
+        self.changeMusic("tabuhSanakLampung.mp3", 0.2)
     
     def initializeWalls(self):
         self.atra.addClampObstacle(self.background.get_rect())
@@ -44,31 +53,40 @@ class RoomLampungScene(Scene):
 
     def initializeObstacle(self):
         self.atra.addObstacles([
-            # self.tapisLampung.copyRect(0.6), 
-            # self.radenintan2.copyRect(0.6), 
-            self.prasastiDadakLampung.copyRect(0.4), 
-            self.prasastiBungkukLampung.copyRect(0.4), 
-            self.kerisLampung.copyRect(0.4), 
-            self.kerisLampung2.copyRect(0.4), 
-            self.sigerLampung.copyRect(0.4)
+            self.prasastiDadakLampung.copyRect(0.3), 
+            self.prasastiBungkukLampung.copyRect(0.3), 
+            self.kerisLampung.copyRect(0.3), 
+            self.kerisLampung2.copyRect(0.3), 
+            self.sigerLampung.copyRect(0.3)
         ])
     
     def onKeyDown(self, keys):
+        if keys[pygame.K_e] and self.itemPreview and isinstance(self.itemPreview.interactableItem, StaffQuiz):
+            def closeQuiz():
+                self.quizDialog = None
+            self.quizDialog = QuizDialog(128, 72, lambda: closeQuiz(), quizLampung)
+            
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
+        if self.quizDialog:
+            for sprite in self.quizDialog:
+                if sprite.rect.collidepoint(position) and isinstance(sprite, Clickable):
+                    sprite.onClick()
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
+        if self.quizDialog:
+            self.quizDialog.draw(self.screen)
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()
+        if self.quizDialog:
+            self.quizDialog.update()
+            if self.quizDialog.isComplete:
+                self.player.lampungCorrectAnswers = self.quizDialog.correctAnswer

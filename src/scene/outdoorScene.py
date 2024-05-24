@@ -2,21 +2,19 @@ import pygame
 
 from src.components.pillar import Pillar
 from src.components.atra import Atra
-from src.scene.scene import Scene
-from src.utils.screenHelper import ScreenHelper
+from src.scene.gameScene import GameScene
 from src.utils.eventHelper import EventHelper
 
-class OutdoorScene(Scene):
+class OutdoorScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/outdoor.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/outdoor.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         self.pillarTopLeftPositions = ((0, 234), (392, 234), (800, 234), (1198, 234), (392, 509), (800, 509))
             
         self.atra = Atra()
         self.sprites.add(self.atra)
         self.pillarSprites = pygame.sprite.Group()
+        
         self.initializeWalls()
         self.initializePillars()
         self.setAtraPosition()
@@ -46,21 +44,16 @@ class OutdoorScene(Scene):
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        # check if atra collides with next scene hitbox
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()

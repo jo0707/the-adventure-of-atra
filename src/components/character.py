@@ -7,9 +7,13 @@ from src.components.movable import Movable
 DIRECTIONS = ("down", "left", "up", "right")
 
 class Character(GameEntity, Movable):
-    def __init__(self, name: str):
-        GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', width=78, height=144)
-        Movable.__init__(self, 4, self.rect)
+    def __init__(self, name: str, speed = 4):
+        self.width = 68
+        self.height = 136
+        self.speed = speed
+        self.name = name
+        GameEntity.__init__(self, f'assets/images/char/{name}/down/0.png', width=self.width, height=self.height)
+        Movable.__init__(self, self.speed, self.rect)
         
         self.currentDirection = DIRECTIONS[0]
         self.currentFrame = 0
@@ -21,7 +25,7 @@ class Character(GameEntity, Movable):
             self.images[direction] = []
             for j in range (0, 4):
                 self.images[direction].append(
-                    pygame.transform.scale(pygame.image.load(f'assets/images/char/{name}/{direction}/{j}.png').convert_alpha(), (78, 144))
+                    pygame.transform.scale(pygame.image.load(f'assets/images/char/{name}/{direction}/{j}.png').convert_alpha(), (self.width, self.height))
                 )
                 
     def update(self):

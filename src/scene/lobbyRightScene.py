@@ -1,20 +1,38 @@
 import pygame
 
 from src.components.atra import Atra
-from src.scene.scene import Scene
+from src.components.visitor1 import Visitor1
+from src.components.visitor2 import Visitor2
+from src.components.visitor3 import Visitor3
+from src.components.visitor4 import Visitor4
+from src.components.visitor5 import Visitor5
+from src.components.visitor6 import Visitor6
+from src.components.badakStatue import BadakStatue
+from src.components.logoSumateraBarat import LogoSumateraBarat
+from src.components.kursi import Kursi
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyRightScene(Scene):
+class LobbyRightScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyRight.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyRight.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
         self.atra.placeLeft()
-        self.sprites.add(self.atra)
+        #self.visitor1 = Visitor1(225,220)
+        self.visitor2 = Visitor2(400, 400, "up")
+        self.visitor3 = Visitor3(225,100)
+        self.visitor4 = Visitor4(1000,370)
+        # self.visitor5 = Visitor5(400,400)
+        self.visitor6 = Visitor6(850, 100)
+        self.badakStatue = BadakStatue(ScreenHelper.getWindowX() / 2 ,ScreenHelper.getWindowY() / 2)
+        self.logoSumateraBarat = LogoSumateraBarat(950, 30)
+        self.kursi1 = Kursi(72, 556)
+        self.kursi2 = Kursi(924, 556)
+        self.sprites.add(self.badakStatue, self.logoSumateraBarat, self.kursi1, self.kursi2, self.atra, self.visitor3, self.visitor4, self.visitor2, self.visitor6)
+        self.itemSprites.add(self.badakStatue, self.logoSumateraBarat)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -27,7 +45,7 @@ class LobbyRightScene(Scene):
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
-        self.atra.addObstacles([self.rightWall, self.bottomWall, self.leftTopWall, self.rightTopWall])
+        self.atra.addObstacles([self.rightWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.badakStatue.copyRect(0.1, 100)])
         
     def setAtraPosition(self):
         if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMSUMATERABARAT:
@@ -37,20 +55,16 @@ class LobbyRightScene(Scene):
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()

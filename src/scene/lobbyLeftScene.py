@@ -1,20 +1,35 @@
 import pygame
 
 from src.components.atra import Atra
-from src.scene.scene import Scene
+from src.components.visitor4 import Visitor4
+from src.components.visitor3 import Visitor3
+from src.components.visitor2 import Visitor2
+from src.components.visitor1 import Visitor1
+from src.components.gajahStatue import GajahStatue
+from src.components.logoLampung import LogoLampung
+from src.components.kursi import Kursi
+from src.scene.gameScene import GameScene
 from src.utils.screenHelper import ScreenHelper
 from src.utils.eventHelper import EventHelper
 
-class LobbyLeftScene(Scene):
+class LobbyLeftScene(GameScene):
     def __init__(self, screen: pygame.Surface, lastSceneEvent: int):
-        super().__init__(screen)
+        super().__init__(screen, "assets/images/backgrounds/lobbyLeft.png")
         self.lastSceneEvent = lastSceneEvent
-        self.background = pygame.image.load("assets/images/backgrounds/lobbyLeft.png").convert_alpha()
-        self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
         self.atra = Atra()
         self.atra.placeRight()
-        self.sprites.add(self.atra)
+        self.visitor3 = Visitor3(200, 70)
+        self.visitor2 = Visitor2(100, 110)
+        self.visitor1 = Visitor1(640, 500, "up")
+        self.visitor4 = Visitor4(1100, 130)
+        self.gajahStatue = GajahStatue(ScreenHelper.getWindowX() / 2, ScreenHelper.getWindowY() / 2)
+        self.logoLampung = LogoLampung(950, 30)
+        self.kursi1 = Kursi(72, 556)
+        self.kursi2 = Kursi(924, 556)
+        self.sprites.add(self.gajahStatue, self.logoLampung, self.kursi1, self.kursi2, self.atra, self.visitor3, self.visitor2, self.visitor1, self.visitor4)
+        
+        self.itemSprites.add(self.gajahStatue, self.logoLampung)
         self.initializeWalls()
         self.setAtraPosition()
     
@@ -22,12 +37,13 @@ class LobbyLeftScene(Scene):
         self.atra.addClampObstacle(self.background.get_rect())
         self.addLevelRect(EventHelper.EVENT_SCENEROOMLAMPUNG, 506, 0, 265, 1)
         self.addLevelRect(EventHelper.EVENT_SCENELOBBYMIDDLE, ScreenHelper.getWindowX()-1, 185, 1, 498)
+        
         self.leftWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 28, ScreenHelper.getWindowY()))
         self.bottomWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, ScreenHelper.getWindowY() - 36, ScreenHelper.getWindowX(), 36))
         self.leftTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, 0, 490, 60))
         self.rightTopWall = pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(790, 0, 490, 60))
         
-        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall])
+        self.atra.addObstacles([self.leftWall, self.bottomWall, self.leftTopWall, self.rightTopWall, self.gajahStatue.copyRect(0.1, 100)])
     
     def setAtraPosition(self):
         if self.lastSceneEvent == EventHelper.EVENT_SCENEROOMLAMPUNG:
@@ -37,20 +53,16 @@ class LobbyLeftScene(Scene):
     
     def onKeyDown(self, keys):
         self.atra.onKeyDown(keys)
+        super().onKeyDown(keys)
     
     def onEvent(self, event):
         pass
     
     def onClick(self, position: tuple[int, int]):
-        pass
+        super().onClick(position)
     
     def display(self):
-        self.screen.blit(self.background, (0, 0))
-        self.sprites.draw(self.screen)
+        super().display()
     
     def update(self):
-        for sprite in self.sprites:
-            sprite.update()
-        for event, rect in self.nextSceneRects.items():
-            if self.atra.rect.colliderect(rect):
-                self.switchSceneEvent(event)
+        super().update()    

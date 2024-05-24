@@ -1,22 +1,23 @@
 import pygame
 import random
 
+from src.components.textbox import Textbox
 from src.components.gameEntity import GameEntity
 from src.components.clickable import Clickable
 from src.utils.fontHelper import FontHelper
 
 class Button(GameEntity, Clickable):
-    def __init__(self, x: int, y: int, width: int, height: int, text: str, font = None, textColor = pygame.colordict.THECOLORS["white"], textHoverColor = pygame.colordict.THECOLORS["slategray"], action=lambda: None) -> None:
-        GameEntity.__init__(self, "assets/images/components/button3.png", x, y, width, height)
+    def __init__(self, x: int, y: int, width: int, height: int, text: str, font = None, textColor = pygame.colordict.THECOLORS["black"], textHoverColor = pygame.colordict.THECOLORS["slategray"], action=lambda: None) -> None:
+        GameEntity.__init__(self, "assets/images/components/itemPreviewBackground.png", x, y, width, height)
         self.__text = text
-        self.font = font if font else FontHelper.fonts["reguler"]
         self.textColor = textColor
         self.textHoverColor = textHoverColor
         self.action = action
         self.isHovered = False
-        self.textSurface = self.font.render(self.__text, True, textColor)
-        self.textRect = self.textSurface.get_rect(center=(width // 2, height // 2))
-        self.image.blit(self.textSurface, self.textRect)
+        
+        self.textbox = Textbox(text, 0, 0, 24, textColor, font)
+        self.textbox.rect.center = (width // 2, height // 2)
+        self.textbox.display(self.image)
         
     def update(self):
         if self.getHoverState() != self.isHovered:
@@ -36,8 +37,10 @@ class Button(GameEntity, Clickable):
     def hoverChange(self):
         if self.isHovered:
             self.image.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
-            self.textSurface = self.font.render(self.__text, True, self.textHoverColor)
+            # self.textSurface = self.font.render(self.__text, True, self.textHoverColor)
+            self.textbox.surf.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_SUB)
         else:
             self.image.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_ADD)
-            self.textSurface = self.font.render(self.__text, True, self.textColor)
-        self.image.blit(self.textSurface, self.textRect)
+            # self.textSurface = self.font.render(self.__text, True, self.textColor)
+            self.textbox.surf.fill((32, 32, 32), special_flags=pygame.BLEND_RGB_ADD)
+            

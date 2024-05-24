@@ -1,5 +1,6 @@
 import pygame
 
+from src.scene.endScene import EndScene
 from src.scene.lobbyLeftScene import LobbyLeftScene
 from src.scene.lobbyMiddleScene import LobbyMiddleScene
 from src.scene.lobbyRightScene import LobbyRightScene
@@ -56,6 +57,9 @@ class SceneManager:
         if event.type == EventHelper.EVENT_SCENESETTINGS:
             self.currentScene = SettingsScene(self.screen, self.lastSceneEvent)
             self.lastSceneEvent = EventHelper.EVENT_SCENESETTINGS
+        if event.type == EventHelper.EVENT_SCENEEND:
+            self.currentScene = EndScene(self.screen, self.lastSceneEvent)
+            self.lastSceneEvent = EventHelper.EVENT_SCENEEND
         
     def onKeyDown(self, keys):
         self.currentScene.onKeyDown(keys)
