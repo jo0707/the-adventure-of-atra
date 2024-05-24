@@ -12,7 +12,7 @@ class RoomSumateraUtaraScene(Scene):
         self.background = pygame.image.load("assets/images/backgrounds/room.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, (pygame.display.get_window_size()))
         
-        self.atra = Atra()
+        self.atra = Atra() 
         self.atra.placeBottom()
         self.sprites.add(self.atra)
         self.initializeWalls()
