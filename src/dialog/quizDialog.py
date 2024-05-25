@@ -59,7 +59,7 @@ class QuizDialog(pygame.sprite.Group):
 
             for i, option in enumerate(self.quizzez[self.currentIndex].options):
                 self.quizButtons[i].setText(option)
-                self.quizButtons[i].setAction(partial(self.nextQuestion, option))  # Use partial to capture the current value of option
+                self.quizButtons[i].setAction(partial(self.nextQuestion, option)) 
         else:
             self.showScore()
 
