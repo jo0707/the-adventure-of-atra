@@ -21,7 +21,7 @@ class RoomSumateraUtaraScene(GameScene):
         super().__init__(screen, "assets/images/backgrounds/room.png")
         self.lastSceneEvent = lastSceneEvent
         
-        self.atra = Atra()
+        self.atra = Atra() 
         self.atra.placeBottom()
         
         self.quizDialog: QuizDialog | None = None
