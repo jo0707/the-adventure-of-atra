@@ -48,19 +48,19 @@ class QuizDialog(pygame.sprite.Group):
         print(self.quizzez[self.currentIndex].answer)
         if answer == self.quizzez[self.currentIndex].answer:
             self.correctAnswer += 1
-            
+
         self.currentIndex += 1
-        
+
         if self.currentIndex != len(self.quizzez):
             self.textboxes[2][2].setText(f"{self.currentIndex + 1}/{len(self.quizzez)} | benar : {self.correctAnswer}")
             self.textboxes[3][2].setText(self.quizzez[self.currentIndex].question)
-            
+
             for i, option in enumerate(self.quizzez[self.currentIndex].options):
                 self.quizButtons[i].setText(option)
-                self.quizButtons[i].setAction(lambda: self.nextQuestion(option))
+                self.quizButtons[i].setAction(partial(self.nextQuestion, option)) 
         else:
             self.showScore()
-        
+
     def showScore(self):
         self.textboxes.clear()
         for button in self.quizButtons:
