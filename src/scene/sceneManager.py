@@ -27,6 +27,7 @@ class SceneManager:
         
     def onEvent(self, event):
         self.currentScene.onEvent(event)
+        
         if event.type == EventHelper.EVENT_SCENESTART:
             self.currentScene = MenuScene(self.screen, self.lastSceneEvent)
             self.lastSceneEvent = EventHelper.EVENT_SCENESTART

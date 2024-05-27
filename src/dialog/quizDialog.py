@@ -1,5 +1,4 @@
 
-import copy
 from functools import partial
 from typing import List, Tuple
 import pygame
@@ -40,7 +39,6 @@ class QuizDialog(pygame.sprite.Group):
         
         self.quizButtons: List[QuizButton] = []
         for i, answer in enumerate(self.quizzez[self.currentIndex].options):
-            print(answer)
             self.quizButtons.append(QuizButton(x + self.pad, y + self.pad + 170 + i * 80, 896, 75, answer, action=partial(self.nextQuestion, answer)))
         
         self.add(self.background, self.closeButton, *self.quizButtons)

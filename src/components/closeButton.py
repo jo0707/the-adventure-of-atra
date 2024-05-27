@@ -20,6 +20,9 @@ class CloseButton(GameEntity, Clickable):
     def onClick(self):
         self.action()
         
+    def setOnClick(self, action: callable):
+        self.action = action
+        
     def setText(self, text: str):
         self.__text = text
         self.update()
